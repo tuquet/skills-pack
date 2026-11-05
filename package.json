@@ -25,12 +25,12 @@
     "skills"
   ],
   "scripts": {
-    "gen": "tsx scripts/fetch-skills.ts && tsx scripts/gen.ts",
+    "gen": "node --use-system-ca --import tsx scripts/fetch-skills.ts && node --use-system-ca --import tsx scripts/gen.ts",
     "lint": "pnpm run gen --check && eslint",
     "test": "tsx scripts/test.ts",
     "typecheck": "tsc",
     "prepare": "git config core.hooksPath .githooks && simple-git-hooks",
-    "sync:skills": "tsx scripts/fetch-skills.ts"
+    "sync:skills": "node --use-system-ca --import tsx scripts/fetch-skills.ts"
   },
   "scripts-info": {
     "gen": "Sync package.json `skills` field and README table from meta.ts",
