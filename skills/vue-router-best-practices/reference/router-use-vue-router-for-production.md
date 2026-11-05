@@ -72,7 +72,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home.vue'), // Lazy loaded
+    component: () => import('@/views/Home.vue'),  // Lazy loaded
     meta: { requiresAuth: false }
   },
   {
@@ -92,7 +92,7 @@ const routes = [
     path: '/users/:id',
     name: 'UserProfile',
     component: () => import('@/views/UserProfile.vue'),
-    props: true // Pass params as props
+    props: true  // Pass params as props
   },
   {
     path: '/:pathMatch(.*)*',
@@ -112,10 +112,7 @@ const router = createRouter({
 // Global navigation guard
 router.beforeEach((to, from) => {
   if (to.meta.requiresAuth && !isAuthenticated()) {
-    return {
-      name: 'Login',
-      query: { redirect: to.fullPath }
-    }
+    return { name: 'Login', query: { redirect: to.fullPath } }
   }
 })
 

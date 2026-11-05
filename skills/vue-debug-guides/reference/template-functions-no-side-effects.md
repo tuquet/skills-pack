@@ -168,16 +168,16 @@ function isExpired(date) {
 
 // IMPURE - unsafe for templates
 function logAndReturn(value) {
-  console.log(value) // I/O
+  console.log(value)  // I/O
   return value
 }
 
 function getFromLocalStorage(key) {
-  return localStorage.getItem(key) // External state
+  return localStorage.getItem(key)  // External state
 }
 
 function updateAndReturn(obj, key, value) {
-  obj[key] = value // Mutation
+  obj[key] = value  // Mutation
   return obj
 }
 ```

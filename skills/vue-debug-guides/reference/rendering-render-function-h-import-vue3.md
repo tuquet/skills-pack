@@ -60,9 +60,7 @@ export default {
 
     // Return a render function from setup
     return () => h('div', [
-      h('button', {
-        onClick: () => count.value++
-      }, `Count: ${count.value}`)
+      h('button', { onClick: () => count.value++ }, `Count: ${count.value}`)
     ])
   }
 }

@@ -134,7 +134,7 @@ onMounted(() => {
 ```javascript
 // utils/seededRandom.js
 export function createSeededRandom(seed) {
-  return function () {
+  return function() {
     seed = (seed * 9301 + 49297) % 233280
     return seed / 233280
   }

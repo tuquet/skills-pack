@@ -65,16 +65,12 @@ The third argument `true` tells Vue that the second argument is a factory functi
 
 ```vue
 <script setup>
-  import
-  {' '}
-  { inject }
-  {' '}
-  from 'vue'
+import { inject } from 'vue'
 
-  // Primitives are safe without factory
-  const count = inject('count', 0)
-  const name = inject('name', 'Guest')
-  const enabled = inject('enabled', false)
+// Primitives are safe without factory
+const count = inject('count', 0)
+const name = inject('name', 'Guest')
+const enabled = inject('enabled', false)
 </script>
 ```
 
@@ -189,8 +185,8 @@ const formContext = inject('formContext', () => ({
 ## TypeScript: Typing Factory Defaults
 
 ```ts
-import type { InjectionKey } from 'vue'
 import { inject } from 'vue'
+import type { InjectionKey } from 'vue'
 
 interface Config {
   apiUrl: string

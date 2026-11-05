@@ -35,7 +35,7 @@ Best for:
 // vitest.config.js
 export default defineConfig({
   test: {
-    environment: 'happy-dom', // or 'jsdom'
+    environment: 'happy-dom',  // or 'jsdom'
   }
 })
 ```
@@ -86,15 +86,13 @@ import { render } from 'vitest-browser-vue'
 import Button from './Button.vue'
 
 test('has correct hover styling', async () => {
-  const { getByRole } = render(Button, {
-    props: { label: 'Click me' }
-  })
+  const { getByRole } = render(Button, { props: { label: 'Click me' } })
 
   const button = getByRole('button')
 
   // Check initial style
   await expect.element(button).toHaveStyle({
-    backgroundColor: 'rgb(59, 130, 246)' // blue
+    backgroundColor: 'rgb(59, 130, 246)'  // blue
   })
 })
 
@@ -114,18 +112,14 @@ test('maintains focus after click', async () => {
 ```javascript
 // Node runner: CANNOT verify actual CSS
 test('danger button has red background', () => {
-  const wrapper = mount(Button, {
-    props: { variant: 'danger' }
-  })
+  const wrapper = mount(Button, { props: { variant: 'danger' } })
   // This only checks class exists, not actual color
   expect(wrapper.classes()).toContain('bg-red-500')
 })
 
 // Vitest Browser Mode: CAN verify computed styles
 test('danger button renders red', async () => {
-  const { getByRole } = render(Button, {
-    props: { variant: 'danger' }
-  })
+  const { getByRole } = render(Button, { props: { variant: 'danger' } })
   await expect.element(getByRole('button')).toHaveStyle({
     backgroundColor: 'rgb(239, 68, 68)'
   })
@@ -156,14 +150,14 @@ test('button has correct padding', async () => {
 ### Native Events - Browser Required
 ```javascript
 // Node runner: Synthetic events only
-// Vitest Browser Mode: Real native events via userEvent
-import { userEvent } from '@vitest/browser/context'
-
 test('handles drag and drop', async () => {
   const wrapper = mount(DraggableList)
   // trigger('dragstart') is synthetic - may not work as expected
   await wrapper.find('.item').trigger('dragstart')
 })
+
+// Vitest Browser Mode: Real native events via userEvent
+import { userEvent } from '@vitest/browser/context'
 
 test('reorders items on drag', async () => {
   const { getByTestId } = render(DraggableList)

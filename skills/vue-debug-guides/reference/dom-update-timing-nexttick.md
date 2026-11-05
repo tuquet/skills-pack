@@ -39,7 +39,7 @@ function updateMessage() {
 
 **Correct:**
 ```javascript
-import { nextTick, ref } from 'vue'
+import { ref, nextTick } from 'vue'
 
 const message = ref('Hello')
 const messageEl = ref(null)

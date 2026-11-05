@@ -53,12 +53,8 @@ Every message is JSON text with a `type` field.
   "seq": 41,
   "data": "<base64-encoded-jpeg>",
   "metadata": {
-    "deviceWidth": 1280,
-    "deviceHeight": 720,
-    "pageScaleFactor": 1,
-    "offsetTop": 0,
-    "scrollOffsetX": 0,
-    "scrollOffsetY": 0,
+    "deviceWidth": 1280, "deviceHeight": 720, "pageScaleFactor": 1,
+    "offsetTop": 0, "scrollOffsetX": 0, "scrollOffsetY": 0,
     "timestamp": 1785038682238
   }
 }

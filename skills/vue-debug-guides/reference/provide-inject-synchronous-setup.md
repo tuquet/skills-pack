@@ -47,17 +47,13 @@ setTimeout(() => {
 **Wrong - Provide after await in setup:**
 ```vue
 <script setup>
-  import
-  {' '}
-  { provide }
-  {' '}
-  from 'vue'
+import { provide } from 'vue'
 
-  const response = await fetch('/api/config')
-  const config = await response.json()
+const response = await fetch('/api/config')
+const config = await response.json()
 
-  // WRONG: This is after an await, setup context may be lost
-  provide('config', config) // May not work reliably
+// WRONG: This is after an await, setup context may be lost
+provide('config', config) // May not work reliably
 </script>
 ```
 
@@ -201,8 +197,8 @@ function debugProvide(key, value) {
 
   if (!instance) {
     console.error(
-      `provide() called outside setup context. `
-      + `Key: ${String(key)}. This will fail silently.`
+      `provide() called outside setup context. ` +
+      `Key: ${String(key)}. This will fail silently.`
     )
     return
   }
@@ -226,7 +222,7 @@ const app = createApp(App)
 app.provide('appConfig', { version: '1.0.0' })
 
 // Even async is OK at app level before mount
-fetchConfig().then((config) => {
+fetchConfig().then(config => {
   app.provide('apiConfig', config)
   app.mount('#app')
 })

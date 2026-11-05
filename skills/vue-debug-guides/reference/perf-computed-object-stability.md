@@ -85,33 +85,33 @@ watchEffect(() => {
 ## Primitive vs Object Computed Behavior (Vue 3.4+)
 
 ```javascript
-import { computed, ref, watchEffect } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 
 const count = ref(0)
 
 // PRIMITIVE: Vue automatically detects value hasn't changed
 const isEven = computed(() => count.value % 2 === 0)
 
-watchEffect(() => console.log(isEven.value)) // true
+watchEffect(() => console.log(isEven.value))  // true
 
-count.value = 2 // isEven still true - NO log
-count.value = 4 // isEven still true - NO log
-count.value = 3 // isEven now false - logs: false
+count.value = 2  // isEven still true - NO log
+count.value = 4  // isEven still true - NO log
+count.value = 3  // isEven now false - logs: false
 
 // OBJECT: New reference every time (without manual comparison)
 const obj = computed(() => ({ isEven: count.value % 2 === 0 }))
 
-watchEffect(() => console.log(obj.value)) // { isEven: true }
+watchEffect(() => console.log(obj.value))  // { isEven: true }
 
-count.value = 2 // Logs again! New object reference
-count.value = 4 // Logs again! New object reference
+count.value = 2  // Logs again! New object reference
+count.value = 4  // Logs again! New object reference
 ```
 
 ## Advanced: Deep Object Comparison
 
 ```javascript
-import { isEqual } from 'lodash-es' // For deep comparison
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
+import { isEqual } from 'lodash-es'  // For deep comparison
 
 const filters = ref({ category: 'all', sortBy: 'date', page: 1 })
 

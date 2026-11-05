@@ -155,35 +155,19 @@ This works fine but is more verbose for stores used frequently in the template.
 
 ```vue
 <script setup>
-  import
-  {' '}
-  { storeToRefs }
-  {' '}
-  from 'pinia'
-  import
-  { useUserStore }
-  {' '}
-  from '@/stores/user'
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/stores/user'
 
-  const userStore = useUserStore()
+const userStore = useUserStore()
 
-  // WRONG: Don't include actions in storeToRefs
-  // Actions are just functions and storeToRefs will skip them anyway
-  const
-  { name, login }
-  {' '}
-  = storeToRefs(userStore)
-  // login is undefined! Actions aren't included in storeToRefs result
+// WRONG: Don't include actions in storeToRefs
+// Actions are just functions and storeToRefs will skip them anyway
+const { name, login } = storeToRefs(userStore)
+// login is undefined! Actions aren't included in storeToRefs result
 
-  // CORRECT: Separate state/getters from actions
-  const
-  { name }
-  {' '}
-  = storeToRefs(userStore)
-  const
-  { login }
-  {' '}
-  = userStore
+// CORRECT: Separate state/getters from actions
+const { name } = storeToRefs(userStore)
+const { login } = userStore
 </script>
 ```
 

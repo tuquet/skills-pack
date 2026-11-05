@@ -111,19 +111,17 @@ defineProps({
 
 ```javascript
 // In development, profile component counts
-import { getCurrentInstance, onMounted } from 'vue'
+import { onMounted, getCurrentInstance } from 'vue'
 
 onMounted(() => {
   const instance = getCurrentInstance()
   let count = 0
 
   function countComponents(vnode) {
-    if (vnode.component)
-      count++
+    if (vnode.component) count++
     if (vnode.children) {
-      vnode.children.forEach((child) => {
-        if (child.component || child.children)
-          countComponents(child)
+      vnode.children.forEach(child => {
+        if (child.component || child.children) countComponents(child)
       })
     }
   }

@@ -133,7 +133,7 @@ export default {
 
 ```javascript
 // composables/useHashRouter.js
-import { computed, onUnmounted, ref } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
 
 export function useHashRouter(routes, notFoundComponent = null) {
   const currentPath = ref(window.location.hash)

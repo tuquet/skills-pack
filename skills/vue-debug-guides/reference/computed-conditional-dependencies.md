@@ -117,10 +117,10 @@ Vue's reactivity system works by tracking which reactive properties are accessed
 
 const computed = computed(() => {
   // Vue starts tracking here
-  if (conditionA.value) { // conditionA is tracked
-    return valueB.value // valueB is ONLY tracked if conditionA is true
+  if (conditionA.value) {      // conditionA is tracked
+    return valueB.value        // valueB is ONLY tracked if conditionA is true
   }
-  return 'default' // If conditionA is false, valueB is NOT tracked!
+  return 'default'             // If conditionA is false, valueB is NOT tracked!
 })
 ```
 
@@ -136,10 +136,8 @@ const result = computed(() => {
   const itemsVal = items.value
 
   // Now use conditional logic safely
-  if (!userVal)
-    return []
-  if (!settingsVal.enabled)
-    return []
+  if (!userVal) return []
+  if (!settingsVal.enabled) return []
   return itemsVal.filter(i => i.active)
 })
 ```

@@ -162,7 +162,7 @@ Users report: "Selecting a row in one table selects it in all tables!"
 **Fix:**
 ```typescript
 const props = withDefaults(defineProps<Props>(), {
-  selectedRows: () => [] // Now each instance has its own array
+  selectedRows: () => []  // Now each instance has its own array
 })
 ```
 

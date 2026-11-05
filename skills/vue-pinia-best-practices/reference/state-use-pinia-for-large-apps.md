@@ -58,7 +58,7 @@ export const useCounterStore = defineStore('counter', {
   state: () => ({ count: 0 }),
   actions: {
     increment() {
-      this.count++ // Tracked in DevTools timeline
+      this.count++  // Tracked in DevTools timeline
     }
   }
 })
@@ -83,7 +83,7 @@ export const useUserStore = defineStore('user', {
 
   getters: {
     // Return type is inferred
-    displayName: state => state.name || 'Anonymous'
+    displayName: (state) => state.name || 'Anonymous'
   },
 
   actions: {
@@ -97,9 +97,9 @@ export const useUserStore = defineStore('user', {
 
 // Usage is fully typed
 const userStore = useUserStore()
-userStore.name // string
-userStore.displayName // string
-userStore.setUser('John', 30) // Type-checked
+userStore.name  // string
+userStore.displayName  // string
+userStore.setUser('John', 30)  // Type-checked
 ```
 
 ### 3. Team Collaboration
@@ -159,7 +159,7 @@ export const useSettingsStore = defineStore('settings', {
     theme: 'light',
     language: 'en'
   }),
-  persist: true // Automatically saved/restored
+  persist: true  // Automatically saved/restored
 })
 ```
 
@@ -197,7 +197,7 @@ export default createStore({
 export const useCounterStore = defineStore('counter', {
   state: () => ({ count: 0 }),
   actions: {
-    increment() { this.count++ } // No mutations needed!
+    increment() { this.count++ }  // No mutations needed!
   }
 })
 ```
@@ -219,7 +219,7 @@ Choose the style that fits your team:
 export const useCounterStore = defineStore('counter', {
   state: () => ({ count: 0 }),
   getters: {
-    double: state => state.count * 2
+    double: (state) => state.count * 2
   },
   actions: {
     increment() { this.count++ }
@@ -246,9 +246,9 @@ npm install pinia
 ```
 
 ```javascript
-import { createPinia } from 'pinia'
 // main.js
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 
 const app = createApp(App)

@@ -32,10 +32,7 @@ if (state === original) {
 }
 
 // BUG: Nested object comparison fails
-const items = reactive([
-  { id: 1 },
-  { id: 2 }
-])
+const items = reactive([{ id: 1 }, { id: 2 }])
 const item = items[0]
 
 // Later...
@@ -44,12 +41,8 @@ if (items[0] === item) {
 }
 
 // BUG: Comparing items from different reactive sources
-const listA = reactive([
-  { id: 1 }
-])
-const listB = reactive([
-  { id: 1 }
-])
+const listA = reactive([{ id: 1 }])
+const listB = reactive([{ id: 1 }])
 if (listA[0] === listB[0]) {
   // Never true, even though they represent the same data
 }
@@ -83,21 +76,17 @@ function isSelected(item) {
 
 // CORRECT: For Set/Map operations, use primitive keys
 const selectedIds = reactive(new Set())
-selectedIds.add(item.id) // Use ID, not object
-selectedIds.has(item.id) // Check by ID
+selectedIds.add(item.id)  // Use ID, not object
+selectedIds.has(item.id)  // Check by ID
 ```
 
 ```javascript
 // When you must compare objects, use toRaw on both sides
-import { isReactive, toRaw } from 'vue'
+import { toRaw, isReactive } from 'vue'
 
 function areEqual(a, b) {
-  const rawA = isReactive(a)
-    ? toRaw(a)
-    : a
-  const rawB = isReactive(b)
-    ? toRaw(b)
-    : b
+  const rawA = isReactive(a) ? toRaw(a) : a
+  const rawB = isReactive(b) ? toRaw(b) : b
   return rawA === rawB
 }
 ```

@@ -18,18 +18,17 @@ The sandbox VM needs system dependencies for Chromium plus agent-browser itself.
 ## Core Pattern
 
 ```ts
-import type { VercelSandboxSession } from '@agent-browser/sandbox/vercel'
 import {
   createAgentBrowserSnapshot,
   runAgentBrowserCommand,
-
-  withAgentBrowserSandbox
-} from '@agent-browser/sandbox/vercel'
+  withAgentBrowserSandbox,
+  type VercelSandboxSession,
+} from "@agent-browser/sandbox/vercel";
 
 async function withBrowser<T>(
   fn: (sandbox: VercelSandboxSession) => Promise<T>,
 ): Promise<T> {
-  return withAgentBrowserSandbox(fn)
+  return withAgentBrowserSandbox(fn);
 }
 ```
 
@@ -40,27 +39,25 @@ The `screenshot --json` command saves to a file and returns the path. Read the f
 ```ts
 export async function screenshotUrl(url: string) {
   return withBrowser(async (sandbox) => {
-    await runAgentBrowserCommand(sandbox, ['open', url])
+    await runAgentBrowserCommand(sandbox, ["open", url]);
 
     const titleResult = await runAgentBrowserCommand<{ data?: { title?: string } }>(sandbox, [
-      'get',
-      'title',
-    ])
-    const title = titleResult.json?.data?.title || url
+      "get", "title",
+    ]);
+    const title = titleResult.json?.data?.title || url;
 
     const ssResult = await runAgentBrowserCommand<{ data?: { path?: string } }>(sandbox, [
-      'screenshot',
-    ])
-    const ssPath = ssResult.json?.data?.path
-    if (!ssPath)
-      throw new Error('Screenshot did not return a file path.')
-    const b64Result = await sandbox.runCommand('base64', ['-w', '0', ssPath])
-    const screenshot = (await b64Result.stdout()).trim()
+      "screenshot",
+    ]);
+    const ssPath = ssResult.json?.data?.path;
+    if (!ssPath) throw new Error("Screenshot did not return a file path.");
+    const b64Result = await sandbox.runCommand("base64", ["-w", "0", ssPath]);
+    const screenshot = (await b64Result.stdout()).trim();
 
-    await runAgentBrowserCommand(sandbox, ['close'], { json: false })
+    await runAgentBrowserCommand(sandbox, ["close"], { json: false });
 
-    return { title, screenshot }
-  })
+    return { title, screenshot };
+  });
 }
 ```
 
@@ -69,22 +66,21 @@ export async function screenshotUrl(url: string) {
 ```ts
 export async function snapshotUrl(url: string) {
   return withBrowser(async (sandbox) => {
-    await runAgentBrowserCommand(sandbox, ['open', url])
+    await runAgentBrowserCommand(sandbox, ["open", url]);
 
     const titleResult = await runAgentBrowserCommand<{ data?: { title?: string } }>(sandbox, [
-      'get',
-      'title',
-    ])
-    const title = titleResult.json?.data?.title || url
+      "get", "title",
+    ]);
+    const title = titleResult.json?.data?.title || url;
 
-    const snapResult = await runAgentBrowserCommand(sandbox, ['snapshot', '-i', '-c'], {
+    const snapResult = await runAgentBrowserCommand(sandbox, ["snapshot", "-i", "-c"], {
       json: false,
-    })
+    });
 
-    await runAgentBrowserCommand(sandbox, ['close'], { json: false })
+    await runAgentBrowserCommand(sandbox, ["close"], { json: false });
 
-    return { title, snapshot: snapResult.stdout }
-  })
+    return { title, snapshot: snapResult.stdout };
+  });
 }
 ```
 
@@ -99,36 +95,35 @@ export async function fillAndSubmitForm(
   postSubmitWaitArgs: string[],
 ) {
   return withBrowser(async (sandbox) => {
-    await runAgentBrowserCommand(sandbox, ['open', url])
+    await runAgentBrowserCommand(sandbox, ["open", url]);
 
-    const snapResult = await runAgentBrowserCommand(sandbox, ['snapshot', '-i'], {
+    const snapResult = await runAgentBrowserCommand(sandbox, ["snapshot", "-i"], {
       json: false,
-    })
-    const snapshot = snapResult.stdout
+    });
+    const snapshot = snapResult.stdout;
     // Parse snapshot to find element refs...
 
     for (const [ref, value] of Object.entries(data)) {
-      await runAgentBrowserCommand(sandbox, ['fill', ref, value])
+      await runAgentBrowserCommand(sandbox, ["fill", ref, value]);
     }
 
-    await runAgentBrowserCommand(sandbox, ['click', '@e5'])
+    await runAgentBrowserCommand(sandbox, ["click", "@e5"]);
     // Pass an app-specific wait, such as ["--url", "**/checkout/complete"],
     // ["--text", "Thanks"], or ["#confirmation"].
-    await runAgentBrowserCommand(sandbox, ['wait', ...postSubmitWaitArgs])
+    await runAgentBrowserCommand(sandbox, ["wait", ...postSubmitWaitArgs]);
 
     const ssResult = await runAgentBrowserCommand<{ data?: { path?: string } }>(sandbox, [
-      'screenshot',
-    ])
-    const ssPath = ssResult.json?.data?.path
-    if (!ssPath)
-      throw new Error('Screenshot did not return a file path.')
-    const b64Result = await sandbox.runCommand('base64', ['-w', '0', ssPath])
-    const screenshot = (await b64Result.stdout()).trim()
+      "screenshot",
+    ]);
+    const ssPath = ssResult.json?.data?.path;
+    if (!ssPath) throw new Error("Screenshot did not return a file path.");
+    const b64Result = await sandbox.runCommand("base64", ["-w", "0", ssPath]);
+    const screenshot = (await b64Result.stdout()).trim();
 
-    await runAgentBrowserCommand(sandbox, ['close'], { json: false })
+    await runAgentBrowserCommand(sandbox, ["close"], { json: false });
 
-    return { screenshot }
-  })
+    return { screenshot };
+  });
 }
 ```
 
@@ -137,18 +132,17 @@ export async function fillAndSubmitForm(
 For many MCP tool calls in one sandbox, `startAgentBrowserMcp` keeps one `agent-browser mcp` process running and sends requests over the sandbox command's stdin. It requires `@vercel/sandbox` 3.7 or later, and `timeout` (milliseconds) applies to each request and to `close()`:
 
 ```ts
-import { startAgentBrowserMcp, withAgentBrowserSandbox } from '@agent-browser/sandbox/vercel'
+import { startAgentBrowserMcp, withAgentBrowserSandbox } from "@agent-browser/sandbox/vercel";
 
 const snapshot = await withAgentBrowserSandbox(async (sandbox) => {
-  const mcp = await startAgentBrowserMcp(sandbox, { timeout: 60_000 })
+  const mcp = await startAgentBrowserMcp(sandbox, { timeout: 60_000 });
   try {
-    await mcp.callTool('agent_browser_open', { url: 'https://example.com' })
-    return await mcp.callTool('agent_browser_snapshot', { interactive: true })
+    await mcp.callTool("agent_browser_open", { url: "https://example.com" });
+    return await mcp.callTool("agent_browser_snapshot", { interactive: true });
+  } finally {
+    await mcp.close();
   }
-  finally {
-    await mcp.close()
-  }
-})
+});
 ```
 
 ## Sandbox Snapshots (Fast Startup)
@@ -164,7 +158,7 @@ Without a sandbox snapshot, each run installs system deps + agent-browser + Chro
 The snapshot must include system dependencies (via `dnf`), agent-browser, and Chromium:
 
 ```ts
-const snapshotId = await createAgentBrowserSnapshot()
+const snapshotId = await createAgentBrowserSnapshot();
 ```
 
 Run this once, then set the environment variable:
@@ -201,14 +195,14 @@ Combine with Vercel Cron Jobs for recurring browser tasks:
 // app/api/cron/route.ts  (or equivalent in your framework)
 export async function GET() {
   const result = await withBrowser(async (sandbox) => {
-    await sandbox.runCommand('agent-browser', ['open', 'https://example.com/pricing'])
-    const snap = await sandbox.runCommand('agent-browser', ['snapshot', '-i', '-c'])
-    await sandbox.runCommand('agent-browser', ['close'])
-    return await snap.stdout()
-  })
+    await sandbox.runCommand("agent-browser", ["open", "https://example.com/pricing"]);
+    const snap = await sandbox.runCommand("agent-browser", ["snapshot", "-i", "-c"]);
+    await sandbox.runCommand("agent-browser", ["close"]);
+    return await snap.stdout();
+  });
 
   // Process results, send alerts, store data...
-  return Response.json({ ok: true, snapshot: result })
+  return Response.json({ ok: true, snapshot: result });
 }
 ```
 

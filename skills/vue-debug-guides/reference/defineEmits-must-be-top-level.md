@@ -49,10 +49,10 @@ if (someCondition) {
 **Incorrect - Referencing local variables:**
 ```vue
 <script setup>
-  const eventNames = ['submit', 'cancel']
+const eventNames = ['submit', 'cancel']
 
-  // ERROR: Cannot reference local variables
-  const emit = defineEmits(eventNames)
+// ERROR: Cannot reference local variables
+const emit = defineEmits(eventNames)
 </script>
 ```
 
@@ -61,20 +61,16 @@ if (someCondition) {
 **Correct - Top level declaration:**
 ```vue
 <script setup>
-  // CORRECT: defineEmits at top level of script setup
-  const emit = defineEmits(['submit', 'cancel', 'update'])
+// CORRECT: defineEmits at top level of script setup
+const emit = defineEmits(['submit', 'cancel', 'update'])
 
-  function handleSubmit()
-  {' '}
-  {
-    emit('submit', data)
-  }
+function handleSubmit() {
+  emit('submit', data)
+}
 
-  function handleCancel()
-  {' '}
-  {
-    emit('cancel')
-  }
+function handleCancel() {
+  emit('cancel')
+}
 </script>
 ```
 
@@ -97,8 +93,8 @@ function handleSubmit(data: FormData) {
 **Correct - Using constant arrays (compile-time constant):**
 ```vue
 <script setup>
-  // CORRECT: Literal array is fine
-  const emit = defineEmits(['submit', 'cancel'])
+// CORRECT: Literal array is fine
+const emit = defineEmits(['submit', 'cancel'])
 </script>
 ```
 
@@ -120,14 +116,10 @@ If you want to share emit logic in a composable, pass the emit function as an ar
 **Correct - Pass emit to composable:**
 ```vue
 <script setup>
-  const emit = defineEmits(['submit', 'cancel', 'validate'])
+const emit = defineEmits(['submit', 'cancel', 'validate'])
 
-  // Pass emit to composable
-  const
-  {' '}
-  { handleSubmit, handleCancel }
-  {' '}
-  = useFormEvents(emit)
+// Pass emit to composable
+const { handleSubmit, handleCancel } = useFormEvents(emit)
 </script>
 ```
 

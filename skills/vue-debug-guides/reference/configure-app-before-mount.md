@@ -41,11 +41,11 @@ app.component('GlobalButton', GlobalButton)
 
 **Correct:**
 ```javascript
-import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import App from './App.vue'
-import GlobalButton from './components/GlobalButton.vue'
 import router from './router'
+import { createPinia } from 'pinia'
+import GlobalButton from './components/GlobalButton.vue'
 
 const app = createApp(App)
 
@@ -73,15 +73,15 @@ app.mount('#app')
 // WRONG: Chaining mount in the middle of configuration
 createApp(App)
   .use(router)
-  .mount('#app') // Everything after this line is a problem
-  .use(pinia) // This doesn't even work - mount returns component instance!
+  .mount('#app')  // Everything after this line is a problem
+  .use(pinia)     // This doesn't even work - mount returns component instance!
 
 // CORRECT: Either complete chain before mount, or use intermediate variable
 createApp(App)
   .use(router)
   .use(pinia)
   .component('GlobalButton', GlobalButton)
-  .mount('#app') // Mount at the very end
+  .mount('#app')  // Mount at the very end
 ```
 
 ## Reference

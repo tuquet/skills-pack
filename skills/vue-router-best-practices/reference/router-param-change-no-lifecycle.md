@@ -129,19 +129,16 @@ export function useRouteData(paramName, fetcher) {
   watch(
     () => route.params[paramName],
     async (id) => {
-      if (!id)
-        return
+      if (!id) return
 
       loading.value = true
       error.value = null
 
       try {
         data.value = await fetcher(id)
-      }
-      catch (e) {
+      } catch (e) {
         error.value = e
-      }
-      finally {
+      } finally {
         loading.value = false
       }
     },

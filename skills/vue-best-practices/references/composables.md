@@ -58,11 +58,10 @@ export function useProductPage() {
 
 **GOOD:**
 ```ts
-import type { Ref } from 'vue'
 // useProductSearch.ts
-import { shallowRef, watch } from 'vue'
+import { shallowRef, watch, type Ref } from 'vue'
 
-export interface Product { id: string, name: string }
+export interface Product { id: string; name: string }
 type SearchProducts = (query: string, signal: AbortSignal) => Promise<Product[]>
 
 export function useProductSearch(query: Readonly<Ref<string>>, search: SearchProducts) {
@@ -78,19 +77,11 @@ export function useProductSearch(query: Readonly<Ref<string>>, search: SearchPro
     error.value = null
     try {
       const result = await search(value, controller.signal)
-      if (current)
-        products.value = result
-    }
-    catch (cause) {
-      if (current) {
-        error.value = cause instanceof Error
-          ? cause.message
-          : String(cause)
-      }
-    }
-    finally {
-      if (current)
-        pending.value = false
+      if (current) products.value = result
+    } catch (cause) {
+      if (current) error.value = cause instanceof Error ? cause.message : String(cause)
+    } finally {
+      if (current) pending.value = false
     }
   }, { immediate: true })
 
@@ -154,13 +145,7 @@ export function useFetch(url, options = {}) {
   } = options
 
   // implementation
-  return {
-    method,
-    headers,
-    timeout,
-    retries,
-    immediate
-  }
+  return { method, headers, timeout, retries, immediate }
 }
 
 useFetch('/api/users', {
@@ -200,7 +185,7 @@ items.value.push({ id: 1, price: 10 })
 
 **GOOD:**
 ```javascript
-import { computed, readonly, ref } from 'vue'
+import { ref, computed, readonly } from 'vue'
 
 export function useCart() {
   const _items = ref([])
@@ -236,8 +221,8 @@ export function useCart() {
 **BAD:**
 ```javascript
 export function useFormatters() {
-  const formatDate = date => new Intl.DateTimeFormat('en-US').format(date)
-  const formatCurrency = amount =>
+  const formatDate = (date) => new Intl.DateTimeFormat('en-US').format(date)
+  const formatCurrency = (amount) =>
     new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)
   return { formatDate, formatCurrency }
 }

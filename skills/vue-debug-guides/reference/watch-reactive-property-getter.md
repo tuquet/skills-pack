@@ -77,10 +77,7 @@ const state = reactive({ firstName: 'John', lastName: 'Doe' })
 
 // Watch multiple properties with array of getters
 watch(
-  [
-    () => state.firstName,
-    () => state.lastName
-  ],
+  [() => state.firstName, () => state.lastName],
   ([newFirst, newLast], [oldFirst, oldLast]) => {
     console.log(`Name changed from ${oldFirst} ${oldLast} to ${newFirst} ${newLast}`)
   }
@@ -90,12 +87,10 @@ watch(
 ## When Direct Watching Works
 
 ```javascript
-import { reactive, ref, watch } from 'vue'
+import { ref, reactive, watch } from 'vue'
 
 const count = ref(0)
-const state = reactive({
-  nested: { value: 1 }
-})
+const state = reactive({ nested: { value: 1 } })
 
 // CORRECT: Refs can be watched directly
 watch(count, (newVal) => {

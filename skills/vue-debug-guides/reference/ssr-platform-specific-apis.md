@@ -45,17 +45,13 @@ const userAgent = navigator.userAgent
 
 ```vue
 <script setup>
-  import
-  {' '}
-  { ref }
-  {' '}
-  from 'vue'
+import { ref } from 'vue'
 
-  // WRONG: Runs on server, crashes
-  const scrollY = ref(window.scrollY)
+// WRONG: Runs on server, crashes
+const scrollY = ref(window.scrollY)
 
-  // WRONG: document doesn't exist on server
-  document.title = 'My Page'
+// WRONG: document doesn't exist on server
+document.title = 'My Page'
 </script>
 ```
 
@@ -130,20 +126,16 @@ export function useMediaQuery(query) {
 
 ```vue
 <script setup>
-  // Nuxt provides process.client and process.server
-  if (process.client)
-  {' '}
-  {
+// Nuxt provides process.client and process.server
+if (process.client) {
   // Only runs in browser
-    window.analytics.track('page_view')
-  }
+  window.analytics.track('page_view')
+}
 
-  if (process.server)
-  {' '}
-  {
+if (process.server) {
   // Only runs on server
-    console.log('Rendering on server')
-  }
+  console.log('Rendering on server')
+}
 </script>
 ```
 
@@ -165,17 +157,17 @@ Use libraries that abstract platform differences:
 
 ```javascript
 // Fetch - works in both Node.js 18+ and browsers
+const response = await fetch('/api/data')
+
 // For older Node.js, use node-fetch or axios
 import axios from 'axios'
-
-const response = await fetch('/api/data')
 const { data } = await axios.get('/api/data')
 ```
 
 ```javascript
-import { parse } from 'cookie' // Works both
 // Universal cookie handling
 import Cookies from 'js-cookie' // Client only
+import { parse } from 'cookie' // Works both
 
 // In Nuxt, use useCookie()
 const token = useCookie('auth-token')
@@ -195,16 +187,14 @@ const token = useCookie('auth-token')
 **Incorrect:**
 ```javascript
 // WRONG: Node.js APIs in universal code
-import fs from 'node:fs'
-
+import fs from 'fs'
 const config = JSON.parse(fs.readFileSync('./config.json'))
 ```
 
 **Correct - Separate Server Code:**
 ```javascript
 // server/utils.js - Server-only file
-import fs from 'node:fs'
-
+import fs from 'fs'
 export function loadConfig() {
   return JSON.parse(fs.readFileSync('./config.json'))
 }

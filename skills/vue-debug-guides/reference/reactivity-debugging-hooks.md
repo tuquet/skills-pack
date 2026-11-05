@@ -23,7 +23,7 @@ Debug hooks only work in development mode and are stripped in production builds.
 
 **Debugging computed properties:**
 ```javascript
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const count = ref(0)
 const doubled = computed(() => count.value * 2, {

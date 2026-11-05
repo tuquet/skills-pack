@@ -28,7 +28,7 @@ import { reactive } from 'vue'
 export const store = reactive({
   count: 0,
   increment() {
-    this.count++ // 'this' should refer to the store
+    this.count++  // 'this' should refer to the store
   }
 })
 ```
@@ -70,11 +70,11 @@ const store = {
 }
 
 // With parentheses - correct context
-store.increment() // this === store ✓
+store.increment()  // this === store ✓
 
 // Without parentheses - getting the function
 const fn = store.increment
-fn() // this === undefined (in strict mode) ✗
+fn()  // this === undefined (in strict mode) ✗
 ```
 
 Vue's event handler behavior:
@@ -122,7 +122,7 @@ export const useCounterStore = defineStore('counter', {
   state: () => ({ count: 0 }),
   actions: {
     increment() {
-      this.count++ // Pinia ensures 'this' is correct
+      this.count++  // Pinia ensures 'this' is correct
     }
   }
 })

@@ -23,7 +23,7 @@ tags: [vue3, vue-router, navigation-guards, redirect, debugging]
 // WRONG: Infinite loop - always redirects to login, even when on login!
 router.beforeEach((to, from) => {
   if (!isAuthenticated()) {
-    return '/login' // Redirects to /login, which triggers guard again...
+    return '/login'  // Redirects to /login, which triggers guard again...
   }
 })
 
@@ -33,7 +33,7 @@ router.beforeEach((to, from) => {
     return '/profile'
   }
   if (to.path === '/profile' && !isVerified()) {
-    return '/dashboard' // Back to dashboard, which goes to profile...
+    return '/dashboard'  // Back to dashboard, which goes to profile...
   }
 })
 ```
@@ -92,10 +92,7 @@ const routes = [
 router.beforeEach((to, from) => {
   // Only redirect if route requires auth
   if (to.meta.requiresAuth && !isAuthenticated()) {
-    return {
-      name: 'Login',
-      query: { redirect: to.fullPath }
-    }
+    return { name: 'Login', query: { redirect: to.fullPath } }
   }
 })
 ```
@@ -110,7 +107,7 @@ router.beforeEach((to, from) => {
 
   if (redirectCount > 3) {
     console.error('Too many redirects, stopping at:', to.path)
-    return '/error' // Escape hatch
+    return '/error'  // Escape hatch
   }
 
   if (needsRedirect(to)) {
@@ -127,12 +124,7 @@ router.beforeEach((to, from) => {
 ```javascript
 // guards/auth.js
 export function createAuthGuard(router) {
-  const publicRoutes = new Set([
-    'Login',
-    'Register',
-    'ForgotPassword',
-    'ResetPassword'
-  ])
+  const publicRoutes = new Set(['Login', 'Register', 'ForgotPassword', 'ResetPassword'])
   const guestOnlyRoutes = new Set(['Login', 'Register'])
 
   router.beforeEach((to, from) => {
@@ -142,10 +134,7 @@ export function createAuthGuard(router) {
 
     // Not logged in, trying to access protected route
     if (!isLoggedIn && !isPublic) {
-      return {
-        name: 'Login',
-        query: { redirect: to.fullPath }
-      }
+      return { name: 'Login', query: { redirect: to.fullPath } }
     }
 
     // Logged in, trying to access guest-only route (like login page)

@@ -24,7 +24,7 @@ tags: [vue3, vue-router, navigation-guards, async, promises]
 // WRONG: Not awaiting - navigation proceeds immediately
 router.beforeEach((to, from) => {
   if (to.meta.requiresAuth) {
-    checkAuth() // This returns a Promise but we're not waiting!
+    checkAuth()  // This returns a Promise but we're not waiting!
     // Navigation continues before checkAuth completes
   }
 })
@@ -52,18 +52,11 @@ router.beforeEach(async (to, from) => {
       const isAuthenticated = await checkAuth()
 
       if (!isAuthenticated) {
-        return {
-          name: 'Login',
-          query: { redirect: to.fullPath }
-        }
+        return { name: 'Login', query: { redirect: to.fullPath } }
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Auth check failed:', error)
-      return {
-        name: 'Error',
-        params: { message: 'Authentication failed' }
-      }
+      return { name: 'Error', params: { message: 'Authentication failed' } }
     }
   }
   // Explicitly return nothing to proceed
@@ -78,12 +71,12 @@ router.beforeEach(async (to, from) => {
 router.beforeEach((to, from) => {
   if (to.meta.requiresAuth) {
     return checkAuth()
-      .then((isAuthenticated) => {
+      .then(isAuthenticated => {
         if (!isAuthenticated) {
           return { name: 'Login' }
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Auth check failed:', error)
         return { name: 'Error' }
       })
@@ -152,13 +145,11 @@ router.beforeEach(async (to, from) => {
       if (!isValid) {
         return '/login'
       }
-    }
-    catch (error) {
+    } catch (error) {
       if (error.message === 'Request timeout') {
         // Let user through but show warning
         console.warn('Auth check timed out')
-      }
-      else {
+      } else {
         return '/login'
       }
     }
@@ -185,8 +176,7 @@ router.beforeEach(async (to, from) => {
       if (!hasSubscription) {
         return '/subscribe'
       }
-    }
-    catch (error) {
+    } catch (error) {
       return '/error'
     }
   }
@@ -200,8 +190,7 @@ router.beforeEach(async (to, from) => {
   try {
     // Your async logic here
     await performChecks(to)
-  }
-  catch (error) {
+  } catch (error) {
     // Always handle errors to prevent navigation from hanging
 
     if (error.response?.status === 401) {
@@ -219,10 +208,7 @@ router.beforeEach(async (to, from) => {
 
     // Unknown error - redirect to error page
     console.error('Navigation guard error:', error)
-    return {
-      name: 'Error',
-      state: { error: error.message }
-    }
+    return { name: 'Error', state: { error: error.message } }
   }
 })
 ```

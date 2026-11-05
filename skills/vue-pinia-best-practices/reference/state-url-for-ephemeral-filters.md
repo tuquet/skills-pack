@@ -24,29 +24,22 @@ For state that represents a "view" of data, use URL query parameters instead of 
 
 ```vue
 <script setup>
-  import
-  {' '}
-  { ref }
-  {' '}
-  from 'vue'
-  import
-  { useProductStore }
-  {' '}
-  from '@/stores/products'
+import { ref } from 'vue'
+import { useProductStore } from '@/stores/products'
 
-  const productStore = useProductStore()
+const productStore = useProductStore()
 
-  // Filter state in component/store only
-  const selectedCategory = ref('all')
-  const priceRange = ref([0, 1000])
-  const sortBy = ref('newest')
-  const searchQuery = ref('')
+// Filter state in component/store only
+const selectedCategory = ref('all')
+const priceRange = ref([0, 1000])
+const sortBy = ref('newest')
+const searchQuery = ref('')
 
-  // Problems with this approach:
-  // 1. User refreshes page → filters reset to defaults
-  // 2. User bookmarks page → bookmark doesn't include filter state
-  // 3. User shares link → friend sees unfiltered view
-  // 4. Back button doesn't restore previous filter state
+// Problems with this approach:
+// 1. User refreshes page → filters reset to defaults
+// 2. User bookmarks page → bookmark doesn't include filter state
+// 3. User shares link → friend sees unfiltered view
+// 4. Back button doesn't restore previous filter state
 </script>
 ```
 
@@ -149,8 +142,8 @@ For complex state, sync URL with store:
 ```javascript
 // stores/productFilters.js
 import { defineStore } from 'pinia'
-import { watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { watch } from 'vue'
 
 export const useProductFiltersStore = defineStore('productFilters', () => {
   const route = useRoute()
@@ -174,16 +167,10 @@ export const useProductFiltersStore = defineStore('productFilters', () => {
   function syncToUrl() {
     router.replace({
       query: {
-        category: category.value !== 'all'
-          ? category.value
-          : undefined,
-        sort: sortBy.value !== 'newest'
-          ? sortBy.value
-          : undefined,
+        category: category.value !== 'all' ? category.value : undefined,
+        sort: sortBy.value !== 'newest' ? sortBy.value : undefined,
         q: searchQuery.value || undefined,
-        page: page.value > 1
-          ? page.value
-          : undefined
+        page: page.value > 1 ? page.value : undefined
       }
     })
   }

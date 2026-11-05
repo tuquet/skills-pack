@@ -25,7 +25,7 @@ const numbers = ref([1, 2, 3, 4, 5])
 
 // WRONG: Mutates the original array
 const reversedNumbers = computed(() => {
-  return numbers.value.reverse() // Modifies numbers.value!
+  return numbers.value.reverse()  // Modifies numbers.value!
 })
 
 // WRONG: Same issue with sort

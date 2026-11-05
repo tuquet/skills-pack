@@ -19,8 +19,8 @@ All plugins must be installed using `app.use()` BEFORE calling `app.mount()`. In
 ```typescript
 import { createApp } from 'vue'
 import App from './App.vue'
-import i18nPlugin from './plugins/i18n'
 import router from './router'
+import i18nPlugin from './plugins/i18n'
 
 const app = createApp(App)
 
@@ -35,11 +35,11 @@ app.use(i18nPlugin, { locale: 'en' })
 ## Good Practice
 
 ```typescript
-import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import App from './App.vue'
-import i18nPlugin from './plugins/i18n'
 import router from './router'
+import { createPinia } from 'pinia'
+import i18nPlugin from './plugins/i18n'
 
 const app = createApp(App)
 

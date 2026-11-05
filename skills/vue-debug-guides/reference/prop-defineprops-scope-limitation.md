@@ -72,7 +72,7 @@ defineProps({
 // validation.js
 export const VALID_SIZES = ['sm', 'md', 'lg']
 export const VALID_COLORS = ['red', 'blue', 'green']
-export const sizeValidator = v => VALID_SIZES.includes(v)
+export const sizeValidator = (v) => VALID_SIZES.includes(v)
 ```
 
 ```vue
@@ -146,17 +146,13 @@ Vue's compiler transforms `<script setup>` code. The `defineProps()` call is ext
 ```javascript
 // Your code:
 const MY_CONST = 'value'
-defineProps({
-  prop: { default: MY_CONST }
-})
+defineProps({ prop: { default: MY_CONST } })
 
 // Compiled (simplified):
 export default {
-  props: {
-    prop: { default: MY_CONST }
-  }, // MY_CONST doesn't exist here!
+  props: { prop: { default: MY_CONST } },  // MY_CONST doesn't exist here!
   setup() {
-    const MY_CONST = 'value' // Defined too late
+    const MY_CONST = 'value'  // Defined too late
   }
 }
 ```

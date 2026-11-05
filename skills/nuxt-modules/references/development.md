@@ -39,9 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
   async moduleDependencies(nuxt) {
     const needsSupport = nuxt.options.runtimeConfig.public?.feature
     return {
-      '@nuxtjs/tailwindcss': needsSupport
-        ? {}
-        : { optional: true }
+      '@nuxtjs/tailwindcss': needsSupport ? {} : { optional: true }
     }
   },
   setup(options, nuxt) {
@@ -96,9 +94,7 @@ import { defineNuxtPlugin } from '#imports'
 
 export default defineNuxtPlugin((nuxtApp) => {
   return {
-    provide: {
-      myHelper: (msg: string) => console.log(msg)
-    }
+    provide: { myHelper: (msg: string) => console.log(msg) }
   }
 })
 ```
@@ -154,14 +150,8 @@ export default defineNuxtModule({
 
     // Single or multiple
     addImports([
-      {
-        name: 'useAuth',
-        from: resolve('./runtime/composables/useAuth')
-      },
-      {
-        name: 'useUser',
-        from: resolve('./runtime/composables/useUser')
-      }
+      { name: 'useAuth', from: resolve('./runtime/composables/useAuth') },
+      { name: 'useUser', from: resolve('./runtime/composables/useUser') }
     ])
 
     // Or entire directory
@@ -193,7 +183,7 @@ export default defineNuxtModule({
 
 ```ts
 // runtime/server/api/users.ts
-import { helper } from '#server/utils/helper' // Clean imports
+import { helper } from '#server/utils/helper'  // Clean imports
 ```
 
 ## Runtime Config
@@ -216,11 +206,7 @@ export default defineNuxtModule({
 export default defineNuxtModule({
   hooks: {
     'pages:extend': (pages) => {
-      pages.push({
-        name: 'custom',
-        path: '/custom',
-        file: resolve('./runtime/pages/custom.vue')
-      })
+      pages.push({ name: 'custom', path: '/custom', file: resolve('./runtime/pages/custom.vue') })
     }
   },
   setup(options, nuxt) {
@@ -335,7 +321,7 @@ export default defineNuxtModule({
 // nuxt.config.ts
 export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss'],
-  tailwindcss: false // Disable the module
+  tailwindcss: false  // Disable the module
 })
 ```
 
@@ -385,12 +371,8 @@ export default defineNuxtModule({
   setup(options, nuxt) {
     setGlobalHead({
       title: 'My Module',
-      meta: [
-        { name: 'description', content: 'Description' }
-      ],
-      link: [
-        { rel: 'icon', href: '/favicon.ico' }
-      ]
+      meta: [{ name: 'description', content: 'Description' }],
+      link: [{ rel: 'icon', href: '/favicon.ico' }]
     })
   }
 })

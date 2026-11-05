@@ -48,15 +48,15 @@ export default {
   beforeRouteEnter(to, from, next) {
     // Fetch data before component exists
     fetchUser(to.params.id)
-      .then((user) => {
+      .then(user => {
         // Pass callback to next() - receives component instance as 'vm'
-        next((vm) => {
+        next(vm => {
           vm.user = user
           vm.loading = false
         })
       })
-      .catch((error) => {
-        next((vm) => {
+      .catch(error => {
+        next(vm => {
           vm.error = error
           vm.loading = false
         })
@@ -78,11 +78,10 @@ export default {
       const user = await fetchUser(to.params.id)
 
       // Still need callback for component access
-      next((vm) => {
+      next(vm => {
         vm.userData = user
       })
-    }
-    catch (error) {
+    } catch (error) {
       // Redirect on error
       next('/error')
     }
@@ -134,9 +133,8 @@ const routes = [
       try {
         // Store data for component to access
         const user = await fetchUser(to.params.id)
-        to.meta.user = user // Attach to route meta
-      }
-      catch (error) {
+        to.meta.user = user  // Attach to route meta
+      } catch (error) {
         return '/error'
       }
     }

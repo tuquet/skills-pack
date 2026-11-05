@@ -130,12 +130,7 @@ const withReplaced = array.with(0, 'newFirst')
 For arrays of objects where you might mutate nested properties:
 
 ```javascript
-const items = ref([
-  {
-    name: 'A',
-    values: [1, 2, 3]
-  }
-])
+const items = ref([{ name: 'A', values: [1, 2, 3] }])
 
 // Shallow copy - nested arrays still shared
 const copied = computed(() => [...items.value])

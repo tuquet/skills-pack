@@ -184,7 +184,7 @@ onUnmounted(() => window.removeEventListener('mousemove', onMove))
 **GOOD:**
 ```ts
 // composables/useMouse.ts
-import { onMounted, onUnmounted, ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 export function useMouse() {
   const x = ref(0)

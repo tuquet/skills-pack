@@ -28,7 +28,7 @@ import UserProfile from './UserProfile.vue'
 
 // BAD: Missing Pinia - causes injection error
 test('displays user name', () => {
-  const wrapper = mount(UserProfile) // ERROR: injection "Symbol(pinia)" not found
+  const wrapper = mount(UserProfile)  // ERROR: injection "Symbol(pinia)" not found
   expect(wrapper.text()).toContain('John')
 })
 ```
@@ -38,18 +38,18 @@ import { useUserStore } from '@/stores/user'
 
 // BAD: No active Pinia instance
 test('user store actions', () => {
-  const store = useUserStore() // ERROR: no active Pinia
+  const store = useUserStore()  // ERROR: no active Pinia
   store.login('john', 'password')
 })
 ```
 
 **Correct - Component Testing:**
 ```javascript
-import { createTestingPinia } from '@pinia/testing'
 import { mount } from '@vue/test-utils'
+import { createTestingPinia } from '@pinia/testing'
 import { vi } from 'vitest'
-import { useUserStore } from '@/stores/user'
 import UserProfile from './UserProfile.vue'
+import { useUserStore } from '@/stores/user'
 
 // CORRECT: Provide testing pinia with stubbed actions
 test('displays user name', () => {
@@ -57,7 +57,7 @@ test('displays user name', () => {
     global: {
       plugins: [
         createTestingPinia({
-          createSpy: vi.fn, // Required if not using globals: true
+          createSpy: vi.fn,  // Required if not using globals: true
           initialState: {
             user: { name: 'John', email: 'john@example.com' }
           }
@@ -73,9 +73,7 @@ test('displays user name', () => {
 test('calls logout action', async () => {
   const wrapper = mount(UserProfile, {
     global: {
-      plugins: [
-        createTestingPinia({ createSpy: vi.fn })
-      ]
+      plugins: [createTestingPinia({ createSpy: vi.fn })]
     }
   })
 
@@ -91,8 +89,8 @@ test('calls logout action', async () => {
 
 **Correct - Store Unit Testing:**
 ```javascript
-import { createPinia, setActivePinia } from 'pinia'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { setActivePinia, createPinia } from 'pinia'
 import { useUserStore } from '@/stores/user'
 
 describe('User Store', () => {
@@ -119,7 +117,7 @@ describe('User Store', () => {
 
   it('clears user on logout', () => {
     const store = useUserStore()
-    store.user = { name: 'John' } // Set initial state
+    store.user = { name: 'John' }  // Set initial state
 
     store.logout()
 
@@ -161,17 +159,15 @@ const wrapper = mount(Component, {
 ## Mocking Specific Action Implementations
 
 ```javascript
-import { createTestingPinia } from '@pinia/testing'
 import { mount } from '@vue/test-utils'
+import { createTestingPinia } from '@pinia/testing'
 import { vi } from 'vitest'
 import { useCartStore } from '@/stores/cart'
 
 test('handles checkout failure', async () => {
   const wrapper = mount(Checkout, {
     global: {
-      plugins: [
-        createTestingPinia({ createSpy: vi.fn })
-      ]
+      plugins: [createTestingPinia({ createSpy: vi.fn })]
     }
   })
 
@@ -190,7 +186,7 @@ test('handles checkout failure', async () => {
 ## Spying on Actions with vi.spyOn
 
 ```javascript
-import { createPinia, setActivePinia } from 'pinia'
+import { setActivePinia, createPinia } from 'pinia'
 import { vi } from 'vitest'
 import { useUserStore } from '@/stores/user'
 
@@ -210,7 +206,7 @@ test('tracks action calls', async () => {
 ## Testing Store $subscribe
 
 ```javascript
-import { createPinia, setActivePinia } from 'pinia'
+import { setActivePinia, createPinia } from 'pinia'
 import { useUserStore } from '@/stores/user'
 
 test('subscription triggers on state change', () => {

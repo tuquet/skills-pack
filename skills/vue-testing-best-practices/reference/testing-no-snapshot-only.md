@@ -29,9 +29,7 @@ import UserCard from './UserCard.vue'
 // BAD: Snapshot-only test proves nothing about functionality
 test('UserCard renders correctly', () => {
   const wrapper = mount(UserCard, {
-    props: {
-      user: { name: 'John', email: 'john@example.com' }
-    }
+    props: { user: { name: 'John', email: 'john@example.com' } }
   })
 
   expect(wrapper.html()).toMatchSnapshot()
@@ -52,9 +50,7 @@ import UserCard from './UserCard.vue'
 // CORRECT: Test actual behavior
 test('UserCard displays user information', () => {
   const wrapper = mount(UserCard, {
-    props: {
-      user: { name: 'John', email: 'john@example.com' }
-    }
+    props: { user: { name: 'John', email: 'john@example.com' } }
   })
 
   expect(wrapper.find('[data-testid="user-name"]').text()).toBe('John')
@@ -63,9 +59,7 @@ test('UserCard displays user information', () => {
 
 test('UserCard email link is clickable', async () => {
   const wrapper = mount(UserCard, {
-    props: {
-      user: { name: 'John', email: 'john@example.com' }
-    }
+    props: { user: { name: 'John', email: 'john@example.com' } }
   })
 
   const emailLink = wrapper.find('a[href^="mailto:"]')
@@ -75,17 +69,13 @@ test('UserCard email link is clickable', async () => {
 
 test('UserCard emits select event when clicked', async () => {
   const wrapper = mount(UserCard, {
-    props: {
-      user: { id: 1, name: 'John' }
-    }
+    props: { user: { id: 1, name: 'John' } }
   })
 
   await wrapper.trigger('click')
 
   expect(wrapper.emitted('select')).toBeTruthy()
-  expect(wrapper.emitted('select')[0]).toEqual([
-    { id: 1, name: 'John' }
-  ])
+  expect(wrapper.emitted('select')[0]).toEqual([{ id: 1, name: 'John' }])
 })
 ```
 
@@ -96,9 +86,7 @@ test('UserCard emits select event when clicked', async () => {
 // ACCEPTABLE: Snapshot as additional check, not the only check
 test('ErrorBoundary renders error message', () => {
   const wrapper = mount(ErrorBoundary, {
-    props: {
-      error: new Error('Something went wrong')
-    }
+    props: { error: new Error('Something went wrong') }
   })
 
   // Primary assertions - verify behavior
@@ -114,9 +102,7 @@ test('ErrorBoundary renders error message', () => {
 ```javascript
 // ACCEPTABLE: Inline snapshot for small, critical structure
 test('generates correct list markup', () => {
-  const wrapper = mount(ListItem, {
-    props: { item: 'Test' }
-  })
+  const wrapper = mount(ListItem, { props: { item: 'Test' } })
 
   expect(wrapper.html()).toMatchInlineSnapshot(`
     "<li class="list-item">Test</li>"
@@ -129,9 +115,7 @@ test('generates correct list markup', () => {
 // ACCEPTABLE: Snapshot for complex generated content
 test('renders correct chart SVG', () => {
   const wrapper = mount(PieChart, {
-    props: {
-      data: [30, 40, 30]
-    }
+    props: { data: [30, 40, 30] }
   })
 
   // Verify key behavior
@@ -149,9 +133,7 @@ test('renders correct chart SVG', () => {
 // Instead of snapshotting entire component
 test('renders product with all required fields', () => {
   const wrapper = mount(ProductCard, {
-    props: {
-      product: { name: 'Widget', price: 9.99, inStock: true }
-    }
+    props: { product: { name: 'Widget', price: 9.99, inStock: true } }
   })
 
   expect(wrapper.find('.product-name').text()).toBe('Widget')
@@ -192,20 +174,20 @@ test('form has accessible labels', () => {
 // ANTI-PATTERN: Giant component snapshot
 test('page renders', () => {
   const wrapper = mount(EntirePageComponent)
-  expect(wrapper.html()).toMatchSnapshot() // 500+ lines of HTML
+  expect(wrapper.html()).toMatchSnapshot()  // 500+ lines of HTML
 })
 
 // ANTI-PATTERN: Snapshot with dynamic content
 test('shows current date', () => {
   const wrapper = mount(DateDisplay)
-  expect(wrapper.html()).toMatchSnapshot() // Fails every day!
+  expect(wrapper.html()).toMatchSnapshot()  // Fails every day!
 })
 
 // ANTI-PATTERN: Snapshot after every test
 test('button works', async () => {
   const wrapper = mount(Counter)
   await wrapper.find('button').trigger('click')
-  expect(wrapper.html()).toMatchSnapshot() // Redundant
+  expect(wrapper.html()).toMatchSnapshot()  // Redundant
 })
 ```
 

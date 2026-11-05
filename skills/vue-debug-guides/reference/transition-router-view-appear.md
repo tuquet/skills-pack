@@ -183,7 +183,7 @@ const routes = [
   {
     path: '/about',
     component: About,
-    meta: { transition: 'slide' } // Custom transition for this route
+    meta: { transition: 'slide' }  // Custom transition for this route
   }
 ]
 ```

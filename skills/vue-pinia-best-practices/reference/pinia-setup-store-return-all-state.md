@@ -25,7 +25,7 @@ This is a critical gotcha that can cause silent failures in production.
 ```javascript
 // stores/user.js - WRONG: Private state breaks SSR/DevTools
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   // Public state
@@ -33,8 +33,8 @@ export const useUserStore = defineStore('user', () => {
   const email = ref('')
 
   // "Private" state - NOT returned
-  const authToken = ref('') // Won't be serialized for SSR!
-  const lastFetchTime = ref(null) // Won't appear in DevTools!
+  const authToken = ref('')  // Won't be serialized for SSR!
+  const lastFetchTime = ref(null)  // Won't appear in DevTools!
 
   const isLoggedIn = computed(() => !!authToken.value)
 
@@ -45,7 +45,7 @@ export const useUserStore = defineStore('user', () => {
     })
     const data = await response.json()
 
-    authToken.value = data.token // This state won't transfer to client in SSR!
+    authToken.value = data.token  // This state won't transfer to client in SSR!
     name.value = data.name
     email.value = data.email
     lastFetchTime.value = Date.now()
@@ -73,7 +73,7 @@ export const useUserStore = defineStore('user', () => {
 ```javascript
 // stores/user.js - CORRECT: All state returned
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   // All state properties
@@ -127,7 +127,7 @@ Use naming conventions instead of actually hiding state:
 
 ```javascript
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   // Convention: underscore prefix for "internal" state
@@ -166,12 +166,12 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     name: '',
     email: '',
-    authToken: '', // Automatically included
-    lastFetchTime: null // Automatically included
+    authToken: '',  // Automatically included
+    lastFetchTime: null  // Automatically included
   }),
 
   getters: {
-    isLoggedIn: state => !!state.authToken
+    isLoggedIn: (state) => !!state.authToken
   },
 
   actions: {
@@ -189,13 +189,13 @@ Understanding the mapping helps avoid mistakes:
 ```javascript
 defineStore('example', () => {
   // ref() becomes state
-  const count = ref(0) // → state.count
+  const count = ref(0)  // → state.count
 
   // computed() becomes getters
-  const double = computed(() => count.value * 2) // → getters.double
+  const double = computed(() => count.value * 2)  // → getters.double
 
   // Regular functions become actions
-  function increment() { // → actions.increment
+  function increment() {  // → actions.increment
     count.value++
   }
 

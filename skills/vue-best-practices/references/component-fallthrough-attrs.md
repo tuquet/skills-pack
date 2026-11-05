@@ -25,39 +25,31 @@ Hyphenated attribute names preserve their original casing in JavaScript, so dot 
 **BAD:**
 ```vue
 <script setup>
-  import
-  {' '}
-  { useAttrs }
-  {' '}
-  from 'vue'
+import { useAttrs } from 'vue'
 
-  const attrs = useAttrs()
+const attrs = useAttrs()
 
-  console.log(attrs.data-testid)  // Syntax error
-  console.log(attrs.dataTestid)   // undefined for data-testid
-  console.log(attrs['on-click'])  // undefined
-  console.log(attrs['@click'])    // undefined
+console.log(attrs.data-testid)  // Syntax error
+console.log(attrs.dataTestid)   // undefined for data-testid
+console.log(attrs['on-click'])  // undefined
+console.log(attrs['@click'])    // undefined
 </script>
 ```
 
 **GOOD:**
 ```vue
 <script setup>
-  import
-  {' '}
-  { useAttrs }
-  {' '}
-  from 'vue'
+import { useAttrs } from 'vue'
 
-  const attrs = useAttrs()
+const attrs = useAttrs()
 
-  console.log(attrs['data-testid'])
-  console.log(attrs['aria-label'])
-  console.log(attrs['foo-bar'])
+console.log(attrs['data-testid'])
+console.log(attrs['aria-label'])
+console.log(attrs['foo-bar'])
 
-  console.log(attrs.onClick)
-  console.log(attrs.onCustomEvent)
-  console.log(attrs.onMouseEnter)
+console.log(attrs.onClick)
+console.log(attrs.onCustomEvent)
+console.log(attrs.onMouseEnter)
 </script>
 ```
 

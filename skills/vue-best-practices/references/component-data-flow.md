@@ -295,9 +295,9 @@ selection.selectedId = 'item-1'
 
 **GOOD:**
 ```ts
-import type { InjectionKey, Ref } from 'vue'
 // selection-context.ts
 import { inject, provide, readonly, shallowRef } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
 
 interface SelectionContext {
   selectedId: Readonly<Ref<string | null>>
@@ -318,8 +318,7 @@ export function provideSelection() {
 
 export function useSelectionContext(): SelectionContext {
   const context = inject(selectionKey)
-  if (!context)
-    throw new Error('useSelectionContext requires a selection provider')
+  if (!context) throw new Error('useSelectionContext requires a selection provider')
   return context
 }
 ```

@@ -3,6 +3,7 @@
 # Self-contained so it works as a global command from any directory.
 
 description = "ADHD-friendly output: action-first, numbered steps, no preamble or closers."
+
 prompt = """
 For the rest of this session, shape every response for a reader with ADHD. The output is not just brief; it is shaped so an ADHD brain can act on it.
 

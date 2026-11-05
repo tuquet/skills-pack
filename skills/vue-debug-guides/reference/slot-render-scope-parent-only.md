@@ -124,7 +124,7 @@ function Parent() {
 }
 
 function Child(slotCallback) {
-  const childData = 'World' // Not visible to callback
+  const childData = 'World'  // Not visible to callback
 
   // Must explicitly pass data via slot props
   return slotCallback({ text: childData })

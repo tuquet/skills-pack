@@ -86,10 +86,7 @@ export const alias = {
 const raw = fs.readFileSync(join(root, 'tsconfig.alias.json'), 'utf-8').trim()
 const tsconfig = JSON.parse(raw)
 tsconfig.compilerOptions.paths = Object.fromEntries(
-  Object.entries(alias).map(([key, value]) => [
-    key,
-    [`./${relative(root, value)}`]
-  ]),
+  Object.entries(alias).map(([key, value]) => [key, [`./${relative(root, value)}`]]),
 )
 const newRaw = JSON.stringify(tsconfig, null, 2)
 if (newRaw !== raw)

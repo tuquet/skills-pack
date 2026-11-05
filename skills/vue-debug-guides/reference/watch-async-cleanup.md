@@ -31,7 +31,7 @@ const results = ref([])
 watch(searchQuery, async (query) => {
   if (query) {
     const response = await fetch(`/api/search?q=${query}`)
-    results.value = await response.json() // May overwrite newer results!
+    results.value = await response.json()  // May overwrite newer results!
   }
 })
 
@@ -46,7 +46,7 @@ watch(searchQuery, (query) => {
 
 **Correct:**
 ```javascript
-import { onWatcherCleanup, ref, watch } from 'vue'
+import { ref, watch, onWatcherCleanup } from 'vue'
 
 const searchQuery = ref('')
 const results = ref([])
@@ -72,13 +72,11 @@ watch(searchQuery, async (query) => {
       signal: controller.signal
     })
     results.value = await response.json()
-  }
-  catch (err) {
+  } catch (err) {
     if (err.name !== 'AbortError') {
       console.error('Search failed:', err)
     }
-  }
-  finally {
+  } finally {
     loading.value = false
   }
 })
@@ -98,10 +96,10 @@ watch(userId, (newId, oldId, onCleanup) => {
 
   fetch(`/api/users/${newId}`, { signal: controller.signal })
     .then(res => res.json())
-    .then((data) => {
+    .then(data => {
       userData.value = data
     })
-    .catch((err) => {
+    .catch(err => {
       if (err.name !== 'AbortError') {
         console.error(err)
       }
@@ -116,7 +114,7 @@ watch(userId, (newId, oldId, onCleanup) => {
 ## Cleanup with Timeouts
 
 ```javascript
-import { onWatcherCleanup, ref, watch } from 'vue'
+import { ref, watch, onWatcherCleanup } from 'vue'
 
 const input = ref('')
 
@@ -160,7 +158,7 @@ watch(id, async (newId, oldId, onCleanup) => {
 ## watchEffect Cleanup
 
 ```javascript
-import { onWatcherCleanup, ref, watchEffect } from 'vue'
+import { ref, watchEffect, onWatcherCleanup } from 'vue'
 
 const resourceId = ref('abc')
 

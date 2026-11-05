@@ -82,11 +82,11 @@ const emit = defineEmits<{
 **Array syntax:**
 ```vue
 <script setup>
-  // CORRECT: Runtime array, no type argument
-  const emit = defineEmits(['submit', 'cancel', 'update:modelValue'])
+// CORRECT: Runtime array, no type argument
+const emit = defineEmits(['submit', 'cancel', 'update:modelValue'])
 
-  emit('submit', formData)
-  emit('cancel')
+emit('submit', formData)
+emit('cancel')
 </script>
 ```
 

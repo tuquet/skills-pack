@@ -81,7 +81,7 @@ export default {
     }
   },
   methods: {
-    syncToServer: debounce((items) => {
+    syncToServer: debounce(function(items) {
       fetch('/api/sync', {
         method: 'POST',
         body: JSON.stringify(items)
@@ -136,7 +136,7 @@ export default {
     }
   },
   methods: {
-    syncContent: debounce(() => {
+    syncContent: debounce(function() {
       // Sync logic
     }, 300)
   }

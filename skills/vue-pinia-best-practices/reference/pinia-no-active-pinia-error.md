@@ -28,16 +28,16 @@ Did you forget to install pinia?
 ## Common Cause 1: Wrong Plugin Order
 
 ```javascript
-import { createPinia } from 'pinia'
 // main.js - WRONG ORDER
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import router from './router'  // Router uses a store in navigation guard
 import App from './App.vue'
-import router from './router' // Router uses a store in navigation guard
 
 const app = createApp(App)
 
 // WRONG: Router is installed first, but its guards use stores
-app.use(router) // Router guard calls useAuthStore() - FAILS!
+app.use(router)  // Router guard calls useAuthStore() - FAILS!
 app.use(createPinia())
 app.mount('#app')
 ```
@@ -45,17 +45,17 @@ app.mount('#app')
 **Fix: Install Pinia first:**
 
 ```javascript
-import { createPinia } from 'pinia'
 // main.js - CORRECT ORDER
 import { createApp } from 'vue'
-import App from './App.vue'
+import { createPinia } from 'pinia'
 import router from './router'
+import App from './App.vue'
 
 const app = createApp(App)
 
 // CORRECT: Pinia installed before anything that uses stores
 app.use(createPinia())
-app.use(router) // Now router guards can safely use stores
+app.use(router)  // Now router guards can safely use stores
 app.mount('#app')
 ```
 
@@ -66,7 +66,7 @@ app.mount('#app')
 import { useAuthStore } from '@/stores/auth'
 
 // This runs immediately when the module is imported!
-const authStore = useAuthStore() // ERROR: No active Pinia yet
+const authStore = useAuthStore()  // ERROR: No active Pinia yet
 
 export function fetchUser() {
   return fetch('/api/user', {
@@ -182,7 +182,7 @@ const router = createRouter({ /* ... */ })
 // This guard is registered immediately
 router.beforeEach((to) => {
   // When this runs during app startup, Pinia might not be ready
-  const authStore = useAuthStore() // May fail!
+  const authStore = useAuthStore()  // May fail!
 
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
     return '/login'

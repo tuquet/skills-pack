@@ -26,12 +26,10 @@ When you emit without declaring:
 
 ```vue
 <script setup>
-  // No defineEmits declaration
-  function handleClick()
-  {' '}
-  {
-    emit('select', item) // Vue warns in dev mode
-  }
+// No defineEmits declaration
+function handleClick() {
+  emit('select', item) // Vue warns in dev mode
+}
 </script>
 ```
 
@@ -46,19 +44,15 @@ in the emits option nor as an "onSelect" prop.
 **Correct - Array syntax:**
 ```vue
 <script setup>
-  const emit = defineEmits(['submit', 'cancel', 'update'])
+const emit = defineEmits(['submit', 'cancel', 'update'])
 
-  function handleSubmit()
-  {' '}
-  {
-    emit('submit', formData)
-  }
+function handleSubmit() {
+  emit('submit', formData)
+}
 
-  function handleCancel()
-  {' '}
-  {
-    emit('cancel')
-  }
+function handleCancel() {
+  emit('cancel')
+}
 </script>
 ```
 
@@ -162,8 +156,8 @@ With declaration, Vue knows it's a component event:
 
 ```vue
 <script setup>
-  // Now Vue knows 'click' is a component event, not native
-  const emit = defineEmits(['click'])
+// Now Vue knows 'click' is a component event, not native
+const emit = defineEmits(['click'])
 </script>
 ```
 

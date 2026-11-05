@@ -36,14 +36,12 @@ This reference covers the core reactivity decisions for local state, external da
 **Incorrect:**
 ```ts
 import { ref } from 'vue'
-
 const count = ref(0)
 ```
 
 **Correct:**
 ```ts
 import { shallowRef } from 'vue'
-
 const count = shallowRef(0)
 ```
 
@@ -154,10 +152,7 @@ watch(() => state.count, () => { /* ... */ }) // ✅
 ```ts
 import { ref, watchEffect } from 'vue'
 
-const items = ref([
-  { price: 10 },
-  { price: 20 }
-])
+const items = ref([{ price: 10 }, { price: 20 }])
 const total = ref(0)
 
 watchEffect(() => {
@@ -167,12 +162,9 @@ watchEffect(() => {
 
 **GOOD:**
 ```ts
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 
-const items = ref([
-  { price: 10 },
-  { price: 20 }
-])
+const items = ref([{ price: 10 }, { price: 20 }])
 const total = computed(() =>
   items.value.reduce((sum, item) => sum + item.price, 0)
 )
@@ -280,8 +272,7 @@ const count = ref(0)
 
 const doubled = computed(() => {
   // ❌ side effect
-  if (count.value > 10)
-    console.warn('Too big!')
+  if (count.value > 10) console.warn('Too big!')
   return count.value * 2
 })
 ```
@@ -295,8 +286,7 @@ const count = ref(0)
 const doubled = computed(() => count.value * 2)
 
 watch(count, (value) => {
-  if (value > 10)
-    console.warn('Too big!')
+  if (value > 10) console.warn('Too big!')
 })
 ```
 
@@ -306,7 +296,7 @@ watch(count, (value) => {
 
 **BAD:**
 ```ts
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 const userId = ref(1)
 
@@ -315,7 +305,7 @@ function loadUser(id) {
 }
 
 onMounted(() => loadUser(userId.value))
-watch(userId, id => loadUser(id))
+watch(userId, (id) => loadUser(id))
 ```
 
 **GOOD:**
@@ -326,7 +316,7 @@ const userId = ref(1)
 
 watch(
   userId,
-  id => loadUser(id),
+  (id) => loadUser(id),
   { immediate: true }
 )
 ```

@@ -86,10 +86,10 @@ export default defineConfig({
 Snapshot the public API from a Vitest test — prefer the Vitest helpers over the tsdown/Rolldown plugin so build config stays focused on building. Each file gates itself on a fresh build via a per-file `beforeAll(guardStaleBuild)` so the committed `dist/` can never drift from source:
 
 ```ts
-import { guardStaleBuild } from 'tsdown-stale-guard'
-import { snapshotApiPerEntry } from 'tsnapi/vitest'
 // test/api.test.ts (single package)
 import { beforeAll } from 'vitest'
+import { snapshotApiPerEntry } from 'tsnapi/vitest'
+import { guardStaleBuild } from 'tsdown-stale-guard'
 
 beforeAll(async () => {
   await guardStaleBuild()
@@ -101,10 +101,10 @@ await snapshotApiPerEntry(new URL('..', import.meta.url).pathname)
 For monorepos, wrap `describePackagesApiSnapshots()` in a `describe` so the per-package suites share a single stale-build gate:
 
 ```ts
-import { guardStaleBuild } from 'tsdown-stale-guard'
-import { describePackagesApiSnapshots } from 'tsnapi/vitest'
 // test/api.test.ts (monorepo, run from root)
 import { beforeAll, describe } from 'vitest'
+import { describePackagesApiSnapshots } from 'tsnapi/vitest'
+import { guardStaleBuild } from 'tsdown-stale-guard'
 
 describe('packages api', async () => {
   beforeAll(async () => {

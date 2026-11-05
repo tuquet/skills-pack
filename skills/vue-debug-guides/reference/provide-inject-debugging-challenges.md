@@ -74,7 +74,7 @@ provide(AuthActionsKey, { login, logout, refresh })
 
 ```js
 // composables/useProvideWithLogging.js
-import { getCurrentInstance, provide, watch } from 'vue'
+import { provide, watch, getCurrentInstance } from 'vue'
 
 export function useProvideWithLogging(key, value, name) {
   provide(key, value)
@@ -97,24 +97,14 @@ export function useProvideWithLogging(key, value, name) {
 
 ```vue
 <script setup>
-  import
-  {' '}
-  { ref }
-  {' '}
-  from 'vue'
-  import
-  { useProvideWithLogging }
-  {' '}
-  from '@/composables/useProvideWithLogging'
-  import
-  { ThemeKey }
-  {' '}
-  from '@/injection-keys'
+import { ref } from 'vue'
+import { useProvideWithLogging } from '@/composables/useProvideWithLogging'
+import { ThemeKey } from '@/injection-keys'
 
-  const theme = ref('dark')
+const theme = ref('dark')
 
-  // In development, logs when provided and when changed
-  useProvideWithLogging(ThemeKey, theme, 'Theme')
+// In development, logs when provided and when changed
+useProvideWithLogging(ThemeKey, theme, 'Theme')
 </script>
 ```
 
@@ -122,7 +112,7 @@ export function useProvideWithLogging(key, value, name) {
 
 ```js
 // composables/useSafeInject.js
-import { getCurrentInstance, inject } from 'vue'
+import { inject, getCurrentInstance } from 'vue'
 
 export function useSafeInject(key, fallback, keyName) {
   const value = inject(key, undefined)
@@ -133,15 +123,13 @@ export function useSafeInject(key, fallback, keyName) {
 
     if (import.meta.env.DEV) {
       console.warn(
-        `[Inject] ${keyName || String(key)} not provided. `
-        + `Component <${componentName}> is using fallback value. `
-        + `Ensure a provider exists in the ancestor chain.`
+        `[Inject] ${keyName || String(key)} not provided. ` +
+        `Component <${componentName}> is using fallback value. ` +
+        `Ensure a provider exists in the ancestor chain.`
       )
     }
 
-    return typeof fallback === 'function'
-      ? fallback()
-      : fallback
+    return typeof fallback === 'function' ? fallback() : fallback
   }
 
   return value

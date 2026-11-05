@@ -29,7 +29,7 @@ export default antfu({
 
   // Stylistic options
   stylistic: {
-    indent: 2, // 2, 4, or 'tab'
+    indent: 2,        // 2, 4, or 'tab'
     quotes: 'single', // or 'double'
   },
 
@@ -145,8 +145,8 @@ For files ESLint doesn't handle natively:
 ```js
 export default antfu({
   formatters: {
-    css: true, // Format CSS, LESS, SCSS (uses Prettier)
-    html: true, // Format HTML (uses Prettier)
+    css: true,      // Format CSS, LESS, SCSS (uses Prettier)
+    html: true,     // Format HTML (uses Prettier)
     markdown: 'prettier' // or 'dprint'
   }
 })
@@ -244,10 +244,7 @@ export default antfu()
   .prepend(/* configs before main */)
   .override('antfu/stylistic/rules', {
     rules: {
-      'style/generator-star-spacing': [
-        'error',
-        { after: true, before: false }
-      ],
+      'style/generator-star-spacing': ['error', { after: true, before: false }],
     }
   })
   .renamePlugins({

@@ -39,7 +39,7 @@ const routes = [
     children: [
       {
         path: 'child',
-        component: Child // This may mount TWICE!
+        component: Child  // This may mount TWICE!
       }
     ]
   }

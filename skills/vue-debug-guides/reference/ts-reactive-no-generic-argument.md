@@ -72,11 +72,11 @@ import { reactive, ref, Ref } from 'vue'
 
 const name = ref('John')
 const state = reactive({
-  name // This is a Ref<string>
+  name: name  // This is a Ref<string>
 })
 
 // At runtime, state.name is 'John' (string), NOT a Ref
-console.log(state.name) // 'John' (not ref object)
+console.log(state.name)       // 'John' (not ref object)
 console.log(state.name.value) // Runtime error: .value doesn't exist
 
 // The ACTUAL return type is different from what you'd expect
@@ -152,8 +152,8 @@ When working with generic type parameters in composables:
 ```typescript
 // PROBLEM: Generic T with ref() causes UnwrapRef issues
 function useBroken<T>(initial: T) {
-  const state = ref(initial) // Type becomes Ref<UnwrapRef<T>>
-  state.value = initial // Error: T is not assignable to UnwrapRef<T>
+  const state = ref(initial)  // Type becomes Ref<UnwrapRef<T>>
+  state.value = initial       // Error: T is not assignable to UnwrapRef<T>
   return state
 }
 
@@ -165,7 +165,7 @@ function useFixed1<T>(initial: T) {
 
 // SOLUTION 2: Use shallowRef (no unwrapping)
 function useFixed2<T>(initial: T) {
-  const state = shallowRef(initial) // Properly typed as ShallowRef<T>
+  const state = shallowRef(initial)  // Properly typed as ShallowRef<T>
   return state
 }
 ```
@@ -176,7 +176,7 @@ For simple non-ref values without nested reactivity, the generic is safe:
 
 ```typescript
 // Safe: no nested refs
-const state = reactive<{ count: number, name: string }>({
+const state = reactive<{ count: number; name: string }>({
   count: 0,
   name: ''
 })

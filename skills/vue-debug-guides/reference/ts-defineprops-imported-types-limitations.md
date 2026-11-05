@@ -61,8 +61,8 @@ defineProps<User>()
 ```typescript
 // types/conditional.ts
 export type ConditionalProps<T> = T extends string
-  ? { value: string, onChange: (v: string) => void }
-  : { value: number, onChange: (v: number) => void }
+  ? { value: string; onChange: (v: string) => void }
+  : { value: number; onChange: (v: number) => void }
 ```
 
 ```vue
@@ -179,8 +179,8 @@ export interface ReadonlyUser {
 
 ```typescript
 // types/forms.ts
-export interface TextInput { type: 'text', value: string }
-export interface NumberInput { type: 'number', value: number }
+export interface TextInput { type: 'text'; value: string }
+export interface NumberInput { type: 'number'; value: number }
 ```
 
 ```vue
@@ -224,7 +224,7 @@ export interface ButtonProps {
 }
 
 // AVOID: Over-engineered generic types
-export interface ButtonProps<V extends string, S extends string> {
+export type ButtonProps<V extends string, S extends string> = {
   variant: V
   size: S
   // ...complex type gymnastics
@@ -241,8 +241,8 @@ export interface ButtonProps<V extends string, S extends string> {
 export interface CreateUserProps {
   name: string
   email: string
-  age?: number // Made optional
-  role?: 'admin' | 'user' // Made optional
+  age?: number  // Made optional
+  role?: 'admin' | 'user'  // Made optional
 }
 ```
 

@@ -89,7 +89,8 @@
       ]
     },
     "anthropics/skills/skills/frontend-design",
-    "vercel-labs/agent-browser"
+    "vercel-labs/agent-browser",
+    "full-stack-skills/tauri-skills/skills"
   ],
   "devDependencies": {
     "@antfu/eslint-config": "catalog:cli",

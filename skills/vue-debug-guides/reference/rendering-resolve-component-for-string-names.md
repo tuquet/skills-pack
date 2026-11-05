@@ -26,8 +26,8 @@ export default {
   render() {
     // WRONG: String names don't resolve to components
     return h('div', [
-      h('my-component', { value: 1 }), // Renders <my-component> HTML element!
-      h('router-link', { to: '/' }, 'Home') // Also fails
+      h('my-component', { value: 1 }),  // Renders <my-component> HTML element!
+      h('router-link', { to: '/' }, 'Home')  // Also fails
     ])
   }
 }
@@ -36,8 +36,8 @@ export default {
 **Correct (Direct Import - Preferred):**
 ```js
 import { h } from 'vue'
-import { RouterLink } from 'vue-router'
 import MyComponent from './MyComponent.vue'
+import { RouterLink } from 'vue-router'
 
 export default {
   render() {
@@ -113,7 +113,7 @@ export default {
 ## Dynamic Component Selection
 
 ```js
-import { computed, h, resolveComponent } from 'vue'
+import { h, resolveComponent, computed } from 'vue'
 
 export default {
   props: ['componentName'],
@@ -148,7 +148,7 @@ export default {
 ## Practical Example: Tab Component
 
 ```js
-import { h, ref, resolveComponent } from 'vue'
+import { h, resolveComponent, ref } from 'vue'
 
 export default {
   setup() {
@@ -157,13 +157,15 @@ export default {
 
     return () => h('div', [
       // Tab buttons
-      h('div', { class: 'tabs' }, tabs.map(tab =>
-        h('button', {
-          key: tab,
-          class: { active: currentTab.value === tab },
-          onClick: () => currentTab.value = tab
-        }, tab)
-      )),
+      h('div', { class: 'tabs' },
+        tabs.map(tab =>
+          h('button', {
+            key: tab,
+            class: { active: currentTab.value === tab },
+            onClick: () => currentTab.value = tab
+          }, tab)
+        )
+      ),
 
       // Dynamic component based on current tab
       h(resolveComponent(currentTab.value))
@@ -177,12 +179,13 @@ export default {
 For built-in components like `<Transition>` or `<KeepAlive>`, import them directly from Vue:
 
 ```js
-import { h, KeepAlive, Suspense, Teleport, Transition } from 'vue'
+import { h, Transition, KeepAlive, Teleport, Suspense } from 'vue'
 
 export default {
   setup() {
     return () => h(Transition, { name: 'fade' }, () =>
-      h('div', 'Content'))
+      h('div', 'Content')
+    )
   }
 }
 ```
@@ -200,9 +203,7 @@ export default {
 
     return withDirectives(
       h('input', { type: 'text' }),
-      [
-        [vFocus]
-      ]
+      [[vFocus]]
     )
   }
 }

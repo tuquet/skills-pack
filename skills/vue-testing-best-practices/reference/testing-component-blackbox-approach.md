@@ -84,7 +84,7 @@ test('emits change event with new value when incremented', async () => {
 ## Using @testing-library/vue for Better Blackbox Tests
 
 ```javascript
-import { fireEvent, render, screen } from '@testing-library/vue'
+import { render, screen, fireEvent } from '@testing-library/vue'
 import Counter from './Counter.vue'
 
 // Testing Library encourages accessible, user-centric queries

@@ -21,7 +21,7 @@ This is a subtle but critical mistake that leads to composables that work with i
 
 **Incorrect:**
 ```javascript
-import { ref, toValue, watchEffect } from 'vue'
+import { ref, watchEffect, toValue } from 'vue'
 
 export function useFetch(url) {
   const data = ref(null)
@@ -36,8 +36,7 @@ export function useFetch(url) {
       // urlValue is a static string - no dependency tracked!
       const response = await fetch(urlValue)
       data.value = await response.json()
-    }
-    catch (e) {
+    } catch (e) {
       error.value = e
     }
   })
@@ -50,12 +49,12 @@ const apiUrl = ref('/api/users')
 const { data } = useFetch(apiUrl)
 
 // Later...
-apiUrl.value = '/api/products' // useFetch will NOT refetch!
+apiUrl.value = '/api/products'  // useFetch will NOT refetch!
 ```
 
 **Correct:**
 ```javascript
-import { ref, toValue, watchEffect } from 'vue'
+import { ref, watchEffect, toValue } from 'vue'
 
 export function useFetch(url) {
   const data = ref(null)
@@ -69,8 +68,7 @@ export function useFetch(url) {
     try {
       const response = await fetch(urlValue)
       data.value = await response.json()
-    }
-    catch (e) {
+    } catch (e) {
       error.value = e
     }
   })
@@ -83,7 +81,7 @@ const apiUrl = ref('/api/users')
 const { data } = useFetch(apiUrl)
 
 // Later...
-apiUrl.value = '/api/products' // useFetch WILL refetch!
+apiUrl.value = '/api/products'  // useFetch WILL refetch!
 ```
 
 ## The Same Applies to Direct Ref Access
@@ -114,19 +112,17 @@ export function useDebounce(source, delay = 300) {
 For `watch()`, wrap `toValue()` in a getter:
 
 ```javascript
-import { ref, toValue, watch } from 'vue'
+import { ref, watch, toValue } from 'vue'
 
 export function useLocalStorage(key, defaultValue) {
   const data = ref(defaultValue)
 
   // CORRECT: Use getter function with watch
   watch(
-    () => toValue(key), // Getter calls toValue, tracks dependency
+    () => toValue(key),  // Getter calls toValue, tracks dependency
     (newKey) => {
       const stored = localStorage.getItem(newKey)
-      data.value = stored
-        ? JSON.parse(stored)
-        : defaultValue
+      data.value = stored ? JSON.parse(stored) : defaultValue
     },
     { immediate: true }
   )
@@ -142,13 +138,13 @@ Vue's reactivity tracking works by detecting property accesses during effect exe
 ```javascript
 watchEffect(() => {
   // When this runs, Vue is "recording" what reactive sources are accessed
-  const value = someRef.value // Vue records: "this effect depends on someRef"
+  const value = someRef.value  // Vue records: "this effect depends on someRef"
 })
 
 // But if you extract the value before:
-const value = someRef.value // Vue isn't recording yet
+const value = someRef.value  // Vue isn't recording yet
 watchEffect(() => {
-  console.log(value) // Just using a plain JavaScript variable
+  console.log(value)  // Just using a plain JavaScript variable
 })
 ```
 
@@ -169,12 +165,12 @@ export function useMyComposable(input) {
 
   const result = computed(() => {
     // Extract value inside reactive context
-    return transform(toValue(input)) // CORRECT
+    return transform(toValue(input))  // CORRECT
   })
 
   watchEffect(() => {
     // Extract value inside reactive context
-    doSomething(toValue(input)) // CORRECT
+    doSomething(toValue(input))  // CORRECT
   })
 
   return { result }

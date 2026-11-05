@@ -190,38 +190,24 @@ const state = inject('state')
 **Wrong - Destructuring provided reactive state:**
 ```vue
 <script setup>
-  import
-  {' '}
-  { inject }
-  {' '}
-  from 'vue'
+import { inject } from 'vue'
 
-  // WRONG: Destructuring loses reactivity
-  const
-  { count, message }
-  {' '}
-  = inject('state')
-  // count and message are now static values
+// WRONG: Destructuring loses reactivity
+const { count, message } = inject('state')
+// count and message are now static values
 </script>
 ```
 
 **Correct - Keep the reference intact:**
 ```vue
 <script setup>
-  import
-  {' '}
-  { inject, toRefs }
-  {' '}
-  from 'vue'
+import { inject, toRefs } from 'vue'
 
-  const state = inject('state')
-  // Use state.count and state.message directly
+const state = inject('state')
+// Use state.count and state.message directly
 
-  // Or use toRefs if you need destructured reactive refs
-  const
-  { count, message }
-  {' '}
-  = toRefs(state)
+// Or use toRefs if you need destructured reactive refs
+const { count, message } = toRefs(state)
 </script>
 ```
 

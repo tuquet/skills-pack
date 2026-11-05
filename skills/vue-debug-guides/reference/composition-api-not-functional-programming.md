@@ -34,12 +34,7 @@ function addTodo(todo) {
 function updateTodo(id, updates) {
   // Unnecessary spread - Vue tracks mutations directly
   todos.value = todos.value.map(t =>
-    t.id === id
-      ? {
-          ...t,
-          ...updates
-        }
-      : t
+    t.id === id ? { ...t, ...updates } : t
   )
 }
 
@@ -53,19 +48,19 @@ function updateName(newName) {
 
 **Correct:**
 ```javascript
-import { reactive, ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 const todos = ref([])
 
 // CORRECT: Mutate directly - Vue tracks the change
 function addTodo(todo) {
-  todos.value.push(todo) // Direct mutation is the Vue way
+  todos.value.push(todo)  // Direct mutation is the Vue way
 }
 
 function updateTodo(id, updates) {
   const todo = todos.value.find(t => t.id === id)
   if (todo) {
-    Object.assign(todo, updates) // Direct mutation
+    Object.assign(todo, updates)  // Direct mutation
   }
 }
 
@@ -73,14 +68,14 @@ const user = ref({ name: 'John', age: 30 })
 
 // CORRECT: Mutate the property directly
 function updateName(newName) {
-  user.value.name = newName // Vue tracks this!
+  user.value.name = newName  // Vue tracks this!
 }
 
 // Or with reactive():
 const state = reactive({ name: 'John', age: 30 })
 
 function updateNameReactive(newName) {
-  state.name = newName // Direct mutation, reactivity preserved
+  state.name = newName  // Direct mutation, reactivity preserved
 }
 ```
 
@@ -92,14 +87,14 @@ function updateNameReactive(newName) {
 // 1. Replacing the entire state (e.g., from API response)
 const users = ref([])
 async function fetchUsers() {
-  users.value = await api.getUsers() // Complete replacement is fine
+  users.value = await api.getUsers()  // Complete replacement is fine
 }
 
 // 2. When you need a snapshot for comparison
-const previousState = { ...currentState } // For undo/redo
+const previousState = { ...currentState }  // For undo/redo
 
 // 3. When passing data to external libraries expecting immutable data
-const chartData = computed(() => [...rawData.value]) // Copy for chart lib
+const chartData = computed(() => [...rawData.value])  // Copy for chart lib
 ```
 
 ## The Vue Mental Model
@@ -114,7 +109,7 @@ const a1 = ref(10)
 const b1 = computed(() => a1.value * 2)
 
 // You CHANGE A1 (mutate), you don't create a new A1
-a1.value = 20 // b1 automatically becomes 40
+a1.value = 20  // b1 automatically becomes 40
 
 // This is fundamentally different from:
 // state = reducer(state, action)  // Functional/Redux pattern

@@ -75,7 +75,7 @@ const vResize = {
 If you only need `mounted`/`updated`, use the function form.
 
 ```ts
-const vAutofocus = el => el.focus()
+const vAutofocus = (el) => el.focus()
 ```
 
 ## Use the `v-` Prefix and Script Setup Registration
@@ -147,7 +147,7 @@ const vTooltip = {
   getSSRProps(binding) {
     return {
       'data-tooltip': binding.value,
-      'class': 'has-tooltip'
+      class: 'has-tooltip'
     }
   }
 }

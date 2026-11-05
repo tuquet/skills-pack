@@ -21,7 +21,7 @@ This caveat is not obvious and can cause hard-to-debug issues when you assume th
 > const itemRefs = useTemplateRef('items')
 >
 > // Works with v-for - use this pattern instead
-> const items = ref([]) // name must match ref="items" in template
+> const items = ref([])  // name must match ref="items" in template
 > ```
 >
 > The examples in this rule show `useTemplateRef()` for illustration, but in practice you should use the legacy `ref()` pattern for v-for scenarios until this limitation is addressed.

@@ -240,7 +240,7 @@ export function assertRef<T>(
 // Usage in component
 function mustFocus() {
   assertRef(inputRef, 'Input element not mounted')
-  inputRef.value.focus() // TypeScript knows it's not null here
+  inputRef.value.focus()  // TypeScript knows it's not null here
 }
 ```
 

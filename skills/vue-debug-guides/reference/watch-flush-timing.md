@@ -104,16 +104,16 @@ watchEffect(
 import { watch, watchEffect, watchPostEffect, watchSyncEffect } from 'vue'
 
 // Default: 'pre' - runs before component DOM update
-watch(source, callback) // Same as { flush: 'pre' }
+watch(source, callback)  // Same as { flush: 'pre' }
 
 // Post: runs after component DOM update
 watch(source, callback, { flush: 'post' })
-watchPostEffect(callback) // Shorthand
+watchPostEffect(callback)  // Shorthand
 
 // Sync: runs immediately when reactive value changes
 // USE WITH CAUTION - no batching, fires on every mutation
 watch(source, callback, { flush: 'sync' })
-watchSyncEffect(callback) // Shorthand
+watchSyncEffect(callback)  // Shorthand
 ```
 
 ## When to Use Each Flush Timing
@@ -135,7 +135,7 @@ const items = ref([1, 2, 3])
 watch(
   items,
   () => {
-    console.log('Changed!') // Called 3 times for push, push, push
+    console.log('Changed!')  // Called 3 times for push, push, push
   },
   { flush: 'sync' }
 )
@@ -147,7 +147,7 @@ items.value.push(6)
 
 // Better: Use default flush which batches updates
 watch(items, () => {
-  console.log('Changed!') // Called once after all mutations
+  console.log('Changed!')  // Called once after all mutations
 }, { deep: true })
 ```
 

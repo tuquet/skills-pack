@@ -103,17 +103,12 @@ agent-browser eval "document.querySelector('canvas').getContext('webgpu') ? 'web
 If you `eval` your own WebGPU readback, don't snapshot the canvas (`drawImage(webgpuCanvas, ...)`) — it depends on presentation timing and reads transparent black on Windows even when rendering works. Render to an offscreen texture and read it back deterministically:
 
 ```js
-const tex = device.createTexture({
-  size: [w, h],
-  format: 'rgba8unorm',
-  usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
-})
+const tex = device.createTexture({ size: [w, h], format: 'rgba8unorm',
+  usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC });
 // ...render to tex, then:
-encoder.copyTextureToBuffer({ texture: tex }, { buffer, bytesPerRow }, [w, h])
-device.queue.submit([
-  encoder.finish()
-])
-await buffer.mapAsync(GPUMapMode.READ)
+encoder.copyTextureToBuffer({ texture: tex }, { buffer, bytesPerRow }, [w, h]);
+device.queue.submit([encoder.finish()]);
+await buffer.mapAsync(GPUMapMode.READ);
 ```
 
 This works headless on every platform (it's how `doctor --webgpu` proves rendering).
