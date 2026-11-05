@@ -6,5 +6,8 @@ export default antfu(
     type: 'lib',
     pnpm: true,
     antislop: true,
+    ignores: [
+      'skills/**',
+    ],
   },
 )

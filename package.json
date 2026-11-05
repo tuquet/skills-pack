@@ -24,24 +24,21 @@
   "files": [
     "skills"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "gen": "tsx scripts/gen.ts",
+    "gen": "tsx scripts/fetch-skills.ts && tsx scripts/gen.ts",
     "lint": "pnpm run gen --check && eslint",
-    "release": "bumpp",
     "test": "tsx scripts/test.ts",
     "typecheck": "tsc",
-    "prepare": "git config core.hooksPath .githooks && simple-git-hooks"
+    "prepare": "git config core.hooksPath .githooks && simple-git-hooks",
+    "sync:skills": "tsx scripts/fetch-skills.ts"
   },
   "scripts-info": {
     "gen": "Sync package.json `skills` field and README table from meta.ts",
     "lint": "Check generated files are in sync and code style",
-    "release": "Bump version and publish a release",
     "test": "Install the pack into a temp project and verify every skill lands",
     "typecheck": "Check types",
-    "prepare": "Set up git hooks"
+    "prepare": "Set up git hooks",
+    "sync:skills": "Fetch and bundle all upstream SKILL.md files into skills/ directory"
   },
   "skills": [
     {
@@ -112,6 +109,6 @@
     "pre-commit": "pnpm i --frozen-lockfile --ignore-scripts --offline && npx nano-staged"
   },
   "nano-staged": {
-    "*": "eslint --fix"
+    "*.{ts,js,mjs}": "eslint --fix"
   }
 }

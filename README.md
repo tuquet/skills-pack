@@ -1,53 +1,49 @@
-# @tuquet/skills
+# Tuquet Skills Pack
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![License][license-src]][license-href]
+Tuquet's curated agent skills for AI coding agents (**Antigravity, Cursor, Claude Code, Windsurf**).
 
-Tuquet's curated agent skills.
+A hand-picked collection of high-value [agent skills](https://agentskills.io) bundled directly in this repository so you can install and use them immediately with a single CLI command - **no npm publish required**.
 
-A hand-picked set of [agent skills](https://agentskills.io) from across the ecosystem, declared in one npm package so a project gets all of them with a single install. 
+---
 
-Powered by the [`skills` CLI](https://github.com/vercel-labs/skills) and [skills-npm](https://github.com/tuquet/skills-npm).
+## Cài đặt & Sử dụng (Installation)
 
-## Setup
+Sử dụng trực tiếp qua GitHub bằng CLI [`skills`](https://github.com/vercel-labs/skills):
 
-Install the [`skills` CLI](https://github.com/vercel-labs/skills) and this pack as dev dependencies, then hook `skills experimental_sync` into your `prepare` script:
-
+### 1. Cài đặt toàn bộ Skills (Khuyên dùng)
+Tự động tải và cài đặt toàn bộ kỹ năng vào các Agent trên máy:
 ```bash
-pnpm i -D skills @tuquet/skills
+npx skills add tuquet/skills-pack --all
 ```
 
-```json
-{
-  "scripts": {
-    "prepare": "skills experimental_sync -y"
-  },
-  "devDependencies": {
-    "skills": "^1.7.4",
-    "@tuquet/skills": "^1.0.0"
-  }
-}
-```
-
-Then run `pnpm i` (or `pnpx skills experimental_sync -y`) for the first sync. From then on every install keeps the skills in sync.
-
-> [!NOTE]
-> `experimental_sync` is the successor of `skills-npm`, which is being merged into the `skills` CLI. Already using `skills-npm`? Run `npx skills-npm migrate` to switch over.
-
-What you get:
-
-- Every skill listed below is installed into `.agents/skills/<name>` and linked into the skill directories of the agents detected on your machine (Claude Code, Cursor, OpenCode, Codex, ...). Pass `-a claude-code cursor` to choose explicitly.
-- `skills-lock.json` records what came from where. Commit it.
-- Removing `@tuquet/skills` from your dependencies removes the skills on the next sync.
-
-The pack tracks each upstream's default branch. To pull in the latest upstream changes without waiting for a new pack release:
-
+### 2. Xem trước danh sách kỹ năng có sẵn (không cài đặt)
+Liệt kê toàn bộ kỹ năng kèm mô tả chi tiết:
 ```bash
-pnpx skills update
+npx skills add tuquet/skills-pack -l
 ```
 
-## Skills
+### 3. Chọn từng kỹ năng theo nhu cầu (Interactive)
+```bash
+npx skills add tuquet/skills-pack
+```
+
+### 4. Chỉ định cài đặt cho riêng Antigravity hoặc Cursor
+```bash
+npx skills add tuquet/skills-pack -a antigravity,cursor --all
+```
+
+---
+
+## Cập nhật (Update)
+
+Để cập nhật toàn bộ skills đã cài đặt lên bản mới nhất:
+```bash
+npx skills update
+```
+
+---
+
+## Danh mục Kỹ năng (Available Skills)
 
 <!-- skills:start -->
 
@@ -109,13 +105,4 @@ pnpx skills update
 
 ## License
 
-[MIT](./LICENSE) License © [Tuquet](https://github.com/tuquet)
-
-<!-- Badges -->
-
-[npm-version-src]: https://img.shields.io/npm/v/@tuquet/skills?style=flat&colorA=080f12&colorB=1fa669
-[npm-version-href]: https://npmx.dev/package/@tuquet/skills
-[npm-downloads-src]: https://img.shields.io/npm/dm/@tuquet/skills?style=flat&colorA=080f12&colorB=1fa669
-[npm-downloads-href]: https://npmx.dev/package/@tuquet/skills
-[license-src]: https://img.shields.io/github/license/tuquet/skills-pack.svg?style=flat&colorA=080f12&colorB=1fa669
-[license-href]: https://github.com/tuquet/skills-pack/blob/main/LICENSE
+[MIT](./LICENSE) License © [Tuquet Contributors](https://github.com/tuquet)
