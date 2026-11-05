@@ -44,17 +44,6 @@ export const sources: Source[] = [
     category: 'Writing',
   },
   {
-    source: 'antfu/skills',
-    category: 'Workflow',
-    skills: [
-      'antfu',
-      'antfu-create-pr',
-      'antfu-issue-triage',
-      'antfu-simplify',
-      'antfu-query',
-    ],
-  },
-  {
     source: 'vuejs-ai/skills',
     category: 'Vue & Nuxt',
     skills: [
@@ -84,5 +73,9 @@ export const sources: Source[] = [
   {
     source: 'full-stack-skills/tauri-skills/skills',
     category: 'Tauri',
+  },
+  {
+    source: 'supabase/agent-skills/skills',
+    category: 'Supabase & Postgres',
   },
 ]

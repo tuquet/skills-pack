@@ -19,7 +19,7 @@ Or grab individual skills:
 
 ```bash
 npx skills add tuquet/skills-pack --skill code-review        # two-axis review (Standards & Spec) before merge
-npx skills add tuquet/skills-pack --skill antfu-simplify     # simplify diffs with ablation study
+npx skills add tuquet/skills-pack --skill supabase-postgres-best-practices # Postgres & Supabase performance, RLS, and indexing
 npx skills add tuquet/skills-pack --skill simple-english     # write plain, layman-readable English without AI slop
 npx skills add tuquet/skills-pack --skill vue-best-practices # Vue 3 Composition API & TypeScript standards
 npx skills add tuquet/skills-pack --skill tauri-app-develop  # Tauri v2 desktop application development
@@ -182,7 +182,7 @@ npx skills update
 ### How Skills Activate
 
 1. **Semantic Auto-Discovery:** Agents automatically read the `description` frontmatter in each `SKILL.md` and activate the appropriate skill when your prompt matches its scope (e.g., asking for a code review automatically engages `code-review`).
-2. **Explicit Invocation:** Reference skills by name in your prompts (`use skill antfu-simplify to clean up this branch` or `/simple-english: ...`).
+2. **Explicit Invocation:** Reference skills by name in your prompts (`use skill supabase-postgres-best-practices to review query performance` or `/simple-english: ...`).
 
 ---
 
@@ -206,11 +206,6 @@ npx skills update
 | [tdd](https://github.com/mattpocock/skills/blob/HEAD/skills/engineering/tdd/SKILL.md) | Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests. | [mattpocock/skills](https://github.com/mattpocock/skills) |
 | [improve](https://github.com/shadcn/improve/blob/HEAD/skills/improve/SKILL.md) | Survey any codebase as a senior advisor and produce prioritized, self-contained implementation plans for OTHER models/agents to execute. | [shadcn/improve](https://github.com/shadcn/improve) |
 | [dry-refactoring](https://github.com/kucherenko/jscpd/blob/HEAD/skills/dry-refactoring/SKILL.md) | Guided workflow to eliminate copy-paste duplication detected by jscpd. | [kucherenko/jscpd](https://github.com/kucherenko/jscpd/tree/HEAD/skills/dry-refactoring) |
-| [antfu](https://github.com/tuquet/skills/blob/HEAD/skills/antfu/SKILL.md) | Tuquet's opinionated tooling and conventions for JavaScript/TypeScript projects. | [antfu/skills](https://github.com/antfu/skills) |
-| [antfu-create-pr](https://github.com/tuquet/skills/blob/HEAD/skills/antfu-create-pr/SKILL.md) | Create a reviewable GitHub pull request from the current branch with a Conventional Commits title, a concise evidence-based body, and before/after screenshots for UI changes. | [antfu/skills](https://github.com/antfu/skills) |
-| [antfu-issue-triage](https://github.com/tuquet/skills/blob/HEAD/skills/antfu-issue-triage/SKILL.md) | Triage open issues and PRs of the current GitHub repo - find already-fixed, duplicate, and spam items, suggest labels, gauge demand from reactions and comments, then present a table of proposed actions and comments for confirmation before touching anything. | [antfu/skills](https://github.com/antfu/skills) |
-| [antfu-simplify](https://github.com/tuquet/skills/blob/HEAD/skills/antfu-simplify/SKILL.md) | Simplify the changes of the current PR or working tree with an ablation study - remove each piece of the diff and keep only what is proven needed - so the result has just-right abstraction, minimal clean code, and stays robust and universal. | [antfu/skills](https://github.com/antfu/skills) |
-| [antfu-query](https://github.com/tuquet/skills/blob/HEAD/skills/antfu-query/SKILL.md) | Interview the user relentlessly about a plan, decision, or idea until reaching a shared understanding, using the agent's interactive question tool (not plain text). | [antfu/skills](https://github.com/antfu/skills) |
 
 ### Writing
 
@@ -300,6 +295,13 @@ npx skills update
 | [tauri-security](https://github.com/full-stack-skills/tauri-skills/blob/HEAD/skills/tauri-security/SKILL.md) | Guidance for Tauri v2 capabilities, scope configuration, and ACL-based permission control. | [full-stack-skills/tauri-skills](https://github.com/full-stack-skills/tauri-skills/tree/HEAD/skills) |
 | [tauri-setup](https://github.com/full-stack-skills/tauri-skills/blob/HEAD/skills/tauri-setup/SKILL.md) | Guidance for Tauri v2 prerequisites and environment setup across macOS, Windows, Linux, and mobile Android iOS targets. | [full-stack-skills/tauri-skills](https://github.com/full-stack-skills/tauri-skills/tree/HEAD/skills) |
 | [tauri-window](https://github.com/full-stack-skills/tauri-skills/blob/HEAD/skills/tauri-window/SKILL.md) | Guidance for Tauri v2 window creation, configuration, lifecycle management, and custom titlebar UI. | [full-stack-skills/tauri-skills](https://github.com/full-stack-skills/tauri-skills/tree/HEAD/skills) |
+
+### Supabase & Postgres
+
+| Skill | Description | Source |
+| --- | --- | --- |
+| [supabase](https://github.com/supabase/agent-skills/blob/HEAD/skills/supabase/SKILL.md) | Use when doing ANY task involving Supabase. | [supabase/agent-skills](https://github.com/supabase/agent-skills/tree/HEAD/skills) |
+| [supabase-postgres-best-practices](https://github.com/supabase/agent-skills/blob/HEAD/skills/supabase-postgres-best-practices/SKILL.md) | Postgres best practices maintained by Supabase, for Postgres running anywhere. | [supabase/agent-skills](https://github.com/supabase/agent-skills/tree/HEAD/skills) |
 
 <!-- skills:end -->
 
