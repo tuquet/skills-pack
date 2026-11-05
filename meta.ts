@@ -71,6 +71,14 @@ export const sources: Source[] = [
     category: 'Browser',
   },
   {
+    source: 'vercel-labs/agent-browser/skill-data',
+    category: 'Browser',
+  },
+  {
+    source: 'vercel-labs/agent-browser/.agents/skills/technical-writer',
+    category: 'Browser',
+  },
+  {
     source: 'full-stack-skills/tauri-skills/skills',
     category: 'Tauri',
   },
