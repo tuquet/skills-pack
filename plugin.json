@@ -1,0 +1,22 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "skills",
+  "version": "1.0.0",
+  "description": "Curated agent skills for AI coding agents covering engineering, workflow, writing, and frameworks.",
+  "author": {
+    "name": "Tuquet",
+    "url": "https://github.com/tuquet"
+  },
+  "homepage": "https://github.com/tuquet/skills-pack",
+  "repository": "https://github.com/tuquet/skills-pack",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "antigravity",
+    "cursor",
+    "claude-code",
+    "gemini",
+    "vue",
+    "engineering"
+  ]
+}

@@ -6,40 +6,182 @@ A hand-picked collection of high-value [agent skills](https://agentskills.io) bu
 
 ---
 
-## Cài đặt & Sử dụng (Installation)
+## Quick Start
 
-Sử dụng trực tiếp qua GitHub bằng CLI [`skills`](https://github.com/vercel-labs/skills):
+**Fastest path - any agent, one command.** The open [skills CLI](https://github.com/vercel-labs/skills) installs into 70+ agents (Antigravity, Cursor, Claude Code, Codex, Copilot, Cline, and more):
 
-### 1. Cài đặt toàn bộ Skills (Khuyên dùng)
-Tự động tải và cài đặt toàn bộ kỹ năng vào các Agent trên máy:
 ```bash
-npx skills add tuquet/skills-pack --all
+npx skills add tuquet/skills-pack            # install all 39 skills
+npx skills add tuquet/skills-pack --list     # browse before installing
 ```
 
-### 2. Xem trước danh sách kỹ năng có sẵn (không cài đặt)
-Liệt kê toàn bộ kỹ năng kèm mô tả chi tiết:
+Or grab individual skills:
+
 ```bash
-npx skills add tuquet/skills-pack -l
+npx skills add tuquet/skills-pack --skill code-review        # two-axis review (Standards & Spec) before merge
+npx skills add tuquet/skills-pack --skill antfu-simplify     # simplify diffs with ablation study
+npx skills add tuquet/skills-pack --skill simple-english     # write plain, layman-readable English without AI slop
+npx skills add tuquet/skills-pack --skill vue-best-practices # Vue 3 Composition API & TypeScript standards
 ```
 
-### 3. Chọn từng kỹ năng theo nhu cầu (Interactive)
-```bash
-npx skills add tuquet/skills-pack
+> **Scope tip:** By default, `npx skills add` installs skills into the current project (`.agents/skills/`). To install globally across all projects on your machine, pass `-g` (or `--global`).
+
+Prefer a native integration? Pick your tool below.
+
+<details>
+<summary><b>Claude Code (recommended)</b></summary>
+
+**Marketplace install:**
+
+```
+/plugin marketplace add tuquet/skills-pack
+/plugin install skills@tuquet-skills
 ```
 
-### 4. Chỉ định cài đặt cho riêng Antigravity hoặc Cursor
+> **SSH errors?** The marketplace clones repos via SSH. If you don't have SSH keys set up on GitHub, either [add your SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) or use the full HTTPS URL to force HTTPS cloning during the marketplace-add step:
+> ```bash
+> /plugin marketplace add https://github.com/tuquet/skills-pack.git
+> /plugin install skills@tuquet-skills
+> ```
+>
+> If `/plugin install` still fails with `git@github.com: Permission denied (publickey)` on Windows or macOS, configure Git once to rewrite GitHub SSH URLs to HTTPS:
+> ```bash
+> git config --global url."https://github.com/".insteadOf git@github.com:
+> ```
+
+**Local / development:**
+
 ```bash
-npx skills add tuquet/skills-pack -a antigravity,cursor --all
+git clone https://github.com/tuquet/skills-pack.git
+claude --plugin-dir /path/to/skills-pack
 ```
+
+</details>
+
+<details>
+<summary><b>Cursor</b></summary>
+
+Put workflow skills under `.cursor/skills/` (sync from `skills-pack/skills/`) and short policies in `.cursor/rules/*.mdc`. Do not paste full skills into rules. Both directories live in your project; this repo does not ship a `.cursor/` folder.
+
+</details>
+
+<details>
+<summary><b>Antigravity CLI</b></summary>
+
+Install as a native plugin for skills.
+
+**Install from the repo:**
+
+```bash
+agy plugin install https://github.com/tuquet/skills-pack.git
+```
+
+**Install from a local clone:**
+
+```bash
+git clone https://github.com/tuquet/skills-pack.git
+agy plugin install ./skills-pack
+```
+
+</details>
+
+<details>
+<summary><b>Gemini CLI</b></summary>
+
+Install as native skills for auto-discovery, or add to `GEMINI.md` for persistent context.
+
+**Install from the repo:**
+
+```bash
+gemini skills install https://github.com/tuquet/skills-pack.git --path skills
+```
+
+**Install from a local clone:**
+
+```bash
+gemini skills install ./skills-pack/skills/
+```
+
+</details>
+
+<details>
+<summary><b>Windsurf</b></summary>
+
+Add skill contents to your Windsurf rules configuration.
+
+</details>
+
+<details>
+<summary><b>OpenCode</b></summary>
+
+Copy skills to `.opencode/skills/` (or `~/.config/opencode/skills/`), add a project-local `AGENTS.md`, and use the built-in `skill` tool for agent-driven execution.
+
+</details>
+
+<details>
+<summary><b>GitHub Copilot</b></summary>
+
+Use skill definitions in `.github/copilot-instructions.md`. Invoke the skills by name directly.
+
+Using the standalone `copilot` CLI? Install it as a plugin:
+
+```bash
+copilot plugin install https://github.com/tuquet/skills-pack.git
+```
+
+</details>
+
+<details>
+<summary><b>Codex</b></summary>
+
+Install as a native Codex plugin (Codex CLI v0.122+):
+
+```bash
+codex plugin marketplace add tuquet/skills-pack
+codex plugin add skills@skills
+```
+
+Codex reads the root `skills/` directory directly through `plugin.json`. Once installed, invoke skills in chat using `@` (e.g., `@code-review`).
+
+</details>
+
+<details>
+<summary><b>Command Code</b></summary>
+
+Install natively with the built-in `cmd skills` command. Command Code clones the repo, discovers every `SKILL.md`, and installs into `.commandcode/skills/`:
+
+```bash
+cmd skills add tuquet/skills-pack            # pick skills to install (project)
+cmd skills add tuquet/skills-pack --global   # install for all projects (~/.commandcode/skills/)
+cmd skills add tuquet/skills-pack -s code-review  # install a specific skill
+```
+
+Installed skills show up in the TUI slash menu.
+
+</details>
+
+<details>
+<summary><b>Other Agents</b></summary>
+
+Skills are plain Markdown: they work with any agent that accepts system prompts or instruction files.
+
+</details>
 
 ---
 
-## Cập nhật (Update)
+## Maintenance
 
-Để cập nhật toàn bộ skills đã cài đặt lên bản mới nhất:
+### Update
+Update all installed skills to their latest revisions:
+
 ```bash
 npx skills update
 ```
+
+### How Skills Activate
+
+1. **Semantic Auto-Discovery:** Agents automatically read the `description` frontmatter in each `SKILL.md` and activate the appropriate skill when your prompt matches its scope (e.g., asking for a code review automatically engages `code-review`).
+2. **Explicit Invocation:** Reference skills by name in your prompts (`use skill antfu-simplify to clean up this branch` or `/simple-english: ...`).
 
 ---
 
