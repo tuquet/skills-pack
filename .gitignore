@@ -1,0 +1,12 @@
+.cache
+.DS_Store
+.githooks
+.idea
+*.log
+*.tgz
+node_modules
+temp
+.agents
+.claude
+.cursor
+skills-lock.json
